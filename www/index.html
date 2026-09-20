@@ -4,6 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Varanasi Water Quality · Ganga Monitoring Report</title>
+<link rel="icon" type="image/svg+xml" href="./assets/ganga-droplet.svg" />
+<link rel="apple-touch-icon" href="./assets/ganga-droplet.svg" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -102,6 +104,20 @@
      MASTHEAD
      ============================================================ */
   .masthead { padding-top: 1.75rem; }
+
+  .brand-lockup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1.15rem 0 0.2rem;
+  }
+
+  .brand-logo {
+    width: clamp(58px, 10vw, 82px);
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 8px 18px rgba(22, 139, 255, 0.18));
+  }
 
   .masthead-bar {
     height: 3px;
@@ -768,6 +784,10 @@
       <span><i class="hgi hgi-file-02"></i> CPCB · UPPCB · NMCG Data</span>
       <span><i class="hgi hgi-location-01"></i> Varanasi, Uttar Pradesh</span>
       <span><i class="hgi hgi-calendar-01"></i> Compiled December 2024</span>
+    </div>
+
+    <div class="brand-lockup">
+      <img class="brand-logo" src="./assets/ganga-droplet.svg" alt="Ganga Watch logo" width="82" height="82" />
     </div>
 
     <h1>Varanasi Water Quality</h1>
