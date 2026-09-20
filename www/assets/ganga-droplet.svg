@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Ganga Watch blue droplet</title>
+  <desc id="desc">A stylized blue water droplet with flowing river bands.</desc>
+  <defs>
+    <linearGradient id="drop" x1="58" y1="34" x2="205" y2="226" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#61D8FF"/>
+      <stop offset="0.42" stop-color="#168BFF"/>
+      <stop offset="1" stop-color="#063CBA"/>
+    </linearGradient>
+    <linearGradient id="wave" x1="42" y1="108" x2="211" y2="194" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#B9F4FF" stop-opacity=".96"/>
+      <stop offset=".48" stop-color="#35B8FF" stop-opacity=".72"/>
+      <stop offset="1" stop-color="#0B5BEA" stop-opacity=".18"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="72" y1="54" x2="112" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".92"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity=".06"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+  </defs>
+
+  <path
+    d="M128 15C117 38 72 88 48 125c-14 22-22 43-22 65 0 35 23 51 45 51h114c22 0 45-16 45-51 0-22-8-43-22-65-24-37-69-87-80-110z"
+    fill="url(#drop)"/>
+
+  <path
+    d="M43 156c22-29 51-39 77-43 35-5 57-16 63-39 10 20 19 39 24 55-13 31-40 49-73 50-38 1-63 14-81 36-12-13-16-32-10-59z"
+    fill="url(#wave)"/>
+
+  <path
+    d="M58 111c20-27 45-55 63-82 12 24 29 47 39 68-14 20-36 31-62 36-17 3-29 9-42 18-5-13-4-25 2-40z"
+    fill="#76E5FF"
+    opacity=".22"/>
+
+  <ellipse
+    cx="91" cy="91" rx="12" ry="30"
+    transform="rotate(34 91 91)"
+    fill="url(#shine)"
+    filter="url(#soft)"/>
+
+  <ellipse cx="76" cy="122" rx="5" ry="7" fill="#FFFFFF" opacity=".88"/>
+</svg>
