@@ -936,10 +936,6 @@
       height: 100%;
     }
 
-    .map-shell.map-fullscreen .map-info {
-      top: max(12px, env(safe-area-inset-top));
-    }
-
     .map-fullscreen-toggle {
       position: absolute;
       z-index: 501;
@@ -966,18 +962,19 @@
 
     .leaflet-control-layers {
       color: var(--sea-900);
-      background: rgba(255,255,255,.78) !important;
-      border: 1px solid rgba(255,255,255,.94) !important;
+      background: rgba(255,255,255,.68) !important;
+      border: 1px solid rgba(255,255,255,.88) !important;
       border-radius: 13px !important;
-      box-shadow: 0 5px 20px rgba(6,56,70,.12), inset 0 1px 0 rgba(255,255,255,.9) !important;
+      box-shadow: 0 7px 24px rgba(6,56,70,.11), inset 0 1px 0 rgba(255,255,255,.92) !important;
       overflow: hidden;
-      -webkit-backdrop-filter: none;
-      backdrop-filter: none;
+      -webkit-backdrop-filter: blur(14px) saturate(1.1);
+      backdrop-filter: blur(14px) saturate(1.1);
     }
 
     .leaflet-control-layers-toggle {
       width: 42px !important;
       height: 42px !important;
+      background-color: transparent !important;
       background-size: 20px 20px !important;
       background-position: center !important;
     }
