@@ -125,6 +125,11 @@
       transform: translate3d(0, calc(-100% - 18px), 0);
     }
 
+    .app.map-is-fullscreen .app-header {
+      transform: translate3d(0, calc(-100% - 24px), 0);
+      pointer-events: none;
+    }
+
     .header-inner {
       width: min(1180px, calc(100% - 32px));
       margin: 0 auto;
@@ -819,6 +824,11 @@
     }
 
     /* ===================================================== ABOUT ===================================================== */
+    #aboutPage .page-inner {
+      position: relative;
+      z-index: 1;
+    }
+
     .about-hero {
       padding: 35px 0 25px;
       animation: reveal-up 420ms cubic-bezier(.22,.75,.2,1) both;
@@ -835,6 +845,8 @@
     }
 
     .about-card {
+      position: relative;
+      z-index: 1;
       display: flex;
       align-items: center;
       gap: 16px;
@@ -1467,6 +1479,7 @@
 
     function setMapFullscreen(enabled) {
       mapShell.classList.toggle("map-fullscreen", enabled);
+      document.querySelector(".app").classList.toggle("map-is-fullscreen", enabled);
       mapFullscreen.innerHTML = enabled
         ? '<i class="ph ph-arrows-in" aria-hidden="true"></i>'
         : '<i class="ph ph-arrows-out" aria-hidden="true"></i>';
@@ -1616,6 +1629,12 @@
       activePage.classList.remove("entering");
       void activePage.offsetWidth;
       activePage.classList.add("entering");
+
+      if (pageIndex === 2) {
+        const aboutPage = $("#aboutPage");
+        aboutPage.scrollTop = 0;
+        aboutPage.setAttribute("aria-hidden", "false");
+      }
 
       if (pageIndex === 0) {
         window.setTimeout(() => {
