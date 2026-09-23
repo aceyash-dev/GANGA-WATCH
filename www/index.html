@@ -394,6 +394,23 @@
       font-size: 9px;
     }
 
+    .leaflet-control-layers {
+      margin-top: 62px !important;
+      border: 1px solid var(--line) !important;
+      border-radius: 13px !important;
+      box-shadow: 0 5px 20px rgba(6, 56, 70, .11) !important;
+      font-family: "Manrope", sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .leaflet-control-layers-toggle {
+      width: 42px !important;
+      height: 42px !important;
+      background-color: var(--white) !important;
+      background-size: 19px 19px !important;
+    }
+
     .leaflet-popup-content-wrapper {
       padding: 0;
       overflow: hidden;
@@ -934,7 +951,7 @@
             <section class="map-shell">
               <div class="map-info">
                 <i class="ph ph-map-pin" aria-hidden="true"></i>
-                <span id="mapSampleCount">22 sample locations</span>
+                <span id="mapSampleCount">36 sample records</span>
               </div>
               <button class="map-reset" id="mapReset" aria-label="Fit all sample locations" title="Fit all sample locations">
                 <i class="ph ph-target" aria-hidden="true"></i>
@@ -966,7 +983,7 @@
                 </div>
                 <h2>Water data.</h2>
               </div>
-              <div class="sample-count" id="resultCount">22 samples</div>
+              <div class="sample-count" id="resultCount">36 samples</div>
             </section>
 
             <section class="toolbar">
@@ -1048,7 +1065,21 @@
       { sno: 19, id: "S-12", location: "Lat Bhairav Kund", lat: 25.33283, lng: 83.02406, elevation: 79, ph: 8.17, ec: 2090, orp: 206, temp: 29.8, tds: 1337.6, remarks: "Dirty" },
       { sno: 20, id: "S-21", location: "Mandakini Kund", lat: 25.32025, lng: 83.01433, elevation: 77, ph: 7.74, ec: 820, orp: 217, temp: 28.9, tds: 524.8, remarks: "Dirty" },
       { sno: 21, id: "S-22", location: "Durga Kund", lat: 25.2888, lng: 82.9999, elevation: 81, ph: 7.22, ec: 950, orp: 228, temp: 29.4, tds: 608, remarks: "Drinkable" },
-      { sno: 22, id: "S-24", location: "Krin Kund", lat: 25.29625, lng: 83.00312, elevation: 81, ph: 7.84, ec: 890, orp: 228, temp: 29.2, tds: 569.6, remarks: "Drinkable" }
+      { sno: 22, id: "S-24", location: "Krin Kund", lat: 25.29625, lng: 83.00312, elevation: 81, ph: 7.84, ec: 890, orp: 228, temp: 29.2, tds: 569.6, remarks: "Drinkable" },
+      { sno: 23, id: "S-1", location: "Water Supply Office", lat: 25.263732, lng: 82.987022, elevation: null, ph: 8.28, ec: 580, orp: 148, temp: 28.6, tds: 371.2, remarks: "Drinkable" },
+      { sno: 24, id: "S-2", location: "Hyderabadg at Cooler Supply", lat: 25.260089, lng: 82.983932, elevation: null, ph: 8.52, ec: 620, orp: 157, temp: 28.8, tds: 306.8, remarks: "Drinkable" },
+      { sno: 25, id: "S-3", location: "Vivekanand Hostel (IIT BHU)", lat: 25.258506, lng: 82.987104, elevation: null, ph: 7.61, ec: 650, orp: 156, temp: 28.9, tds: 416.0, remarks: "Drinkable" },
+      { sno: 26, id: "S-4", location: "BHU Press Water Supply", lat: 25.259053, lng: 82.995325, elevation: null, ph: 7.44, ec: 570, orp: 166, temp: 28.7, tds: 361.8, remarks: "Drinkable" },
+      { sno: 27, id: "S-5", location: "Dept. of Chemistry", lat: 25.266863, lng: 82.993749, elevation: null, ph: 7.91, ec: 600, orp: 155, temp: 28.7, tds: 381.0, remarks: "Drinkable" },
+      { sno: 28, id: "S-6", location: "MCH Water Supply", lat: null, lng: null, elevation: null, ph: 7.32, ec: 780, orp: 154, temp: 28.6, tds: 499.2, remarks: "Drinkable" },
+      { sno: 29, id: "S-7", location: "Badi Tanki", lat: null, lng: null, elevation: null, ph: 7.33, ec: 710, orp: 157, temp: 28.6, tds: 454.1, remarks: "Drinkable" },
+      { sno: 30, id: "S-8", location: "Gargi Hostel", lat: 25.278278, lng: 82.995876, elevation: null, ph: 7.13, ec: 880, orp: 156, temp: 28.5, tds: 563.2, remarks: "Drinkable" },
+      { sno: 31, id: "S-9", location: "Triveni Water Supply", lat: 25.276829, lng: 82.991882, elevation: null, ph: 8.04, ec: 630, orp: 156, temp: 28.5, tds: 403.2, remarks: "Drinkable" },
+      { sno: 32, id: "S-10", location: "Dhanvantari Hostel Cooler", lat: 25.276591, lng: 82.991473, elevation: null, ph: 7.48, ec: 620, orp: 162, temp: 28.6, tds: 396.8, remarks: "Drinkable" },
+      { sno: 33, id: "S-11", location: "Naria Pump", lat: 25.277996, lng: 82.987645, elevation: null, ph: 8.25, ec: 590, orp: 160, temp: 28.4, tds: 377.6, remarks: "Drinkable" },
+      { sno: 34, id: "S-12", location: "Jodhpur Colony", lat: 25.273156, lng: 82.985415, elevation: null, ph: 7.41, ec: 540, orp: 161, temp: 28.3, tds: 345.6, remarks: "Drinkable" },
+      { sno: 35, id: "S-13", location: "Principal Colony", lat: 25.270636, lng: 82.985120, elevation: null, ph: 7.65, ec: 580, orp: 161, temp: 28.1, tds: 371.2, remarks: "Drinkable" },
+      { sno: 36, id: "S-14", location: "Broacha Hostel", lat: 25.271336, lng: 82.989640, elevation: null, ph: 7.65, ec: 580, orp: 161, temp: 28.1, tds: 371.2, remarks: "Drinkable" }
     ];
 
     /* ========================================================= HELPERS ========================================================= */
@@ -1073,6 +1104,17 @@
       return "dirty";
     }
 
+    function formatCoordinates(sample) {
+      if (!Number.isFinite(sample.lat) || !Number.isFinite(sample.lng)) {
+        return "Coordinates unavailable";
+      }
+      return `${sample.lat.toFixed(6)}, ${sample.lng.toFixed(6)}`;
+    }
+
+    function formatElevation(elevation) {
+      return Number.isFinite(elevation) ? `${elevation} m` : "Elevation unavailable";
+    }
+
     /* ========================================================= SUMMARY ========================================================= */
     $("#averagePh").textContent = average(samples.map(sample => sample.ph)).toFixed(2);
     $("#averageTds").textContent = `${average(samples.map(sample => sample.tds)).toFixed(1)} mg/L`;
@@ -1084,13 +1126,47 @@
 
     L.control.zoom({ position: "bottomleft" }).addTo(map);
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>'
-    }).addTo(map);
+    // ArcGIS cached map services provide the GIS basemaps. No API key is required
+    // for these public services, keeping this static site dependency-free.
+    const arcgisStreet = L.tileLayer(
+      "https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
+      {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.esri.com/" target="_blank" rel="noopener">Esri</a> and the GIS User Community'
+      }
+    );
+
+    const arcgisImagery = L.tileLayer(
+      "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+      {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.esri.com/" target="_blank" rel="noopener">Esri</a>, Maxar, Earthstar Geographics, and the GIS User Community'
+      }
+    );
+
+    arcgisStreet.addTo(map);
+
+    L.control.layers(
+      {
+        "ArcGIS Streets": arcgisStreet,
+        "ArcGIS Imagery": arcgisImagery
+      },
+      null,
+      { position: "topright", collapsed: true }
+    ).addTo(map);
 
     const markers = [];
-    const bounds = L.latLngBounds(samples.map(sample => [sample.lat, sample.lng]));
+    const mappedSamples = samples.filter(sample =>
+      Number.isFinite(sample.lat) && Number.isFinite(sample.lng)
+    );
+    const bounds = mappedSamples.length
+      ? L.latLngBounds(mappedSamples.map(sample => [sample.lat, sample.lng]))
+      : null;
+
+    $("#mapSampleCount").textContent =
+      mappedSamples.length === samples.length
+        ? `${samples.length} mapped sample locations`
+        : `${samples.length} sample records · ${mappedSamples.length} mapped locations`;
 
     function colorForStatus(status) {
       if (status === "Drinkable") return "#087a61";
@@ -1128,14 +1204,14 @@
             </div>
             <div class="popup-value">
               <small>Elevation</small>
-              <strong>${sample.elevation} m</strong>
+              <strong>${formatElevation(sample.elevation)}</strong>
             </div>
           </div>
         </div>
       `;
     }
 
-    samples.forEach((sample, index) => {
+    mappedSamples.forEach((sample, index) => {
       const marker = L.circleMarker([sample.lat, sample.lng], {
         radius: 8,
         color: "#ffffff",
@@ -1156,6 +1232,7 @@
     });
 
     function fitAllMarkers() {
+      if (!bounds || !bounds.isValid()) return;
       map.fitBounds(bounds, { padding: [45, 45], maxZoom: 14, animate: true });
     }
 
@@ -1200,7 +1277,7 @@
       }
 
       dataList.innerHTML = filtered.map(sample => `
-        <article class="sample-card" data-sample="${escapeHTML(sample.id)}">
+        <article class="sample-card" data-sample="${sample.sno}">
           <div class="sample-card-head">
             <div class="sample-title">
               <div class="sample-id">${escapeHTML(sample.id)}</div>
@@ -1233,11 +1310,11 @@
           <div class="sample-meta">
             <span>
               <i class="ph ph-map-pin" aria-hidden="true"></i>
-              ${sample.lat.toFixed(5)}, ${sample.lng.toFixed(5)}
+              ${formatCoordinates(sample)}
             </span>
             <span>
               <i class="ph ph-mountains" aria-hidden="true"></i>
-              ${sample.elevation} m
+              ${formatElevation(sample.elevation)}
             </span>
             <span>ORP ${sample.orp} mV</span>
           </div>
@@ -1246,8 +1323,8 @@
 
       document.querySelectorAll(".sample-card").forEach(card => {
         card.addEventListener("click", () => {
-          const id = card.dataset.sample;
-          const entry = markers.find(item => item.sample.id === id);
+          const sampleNumber = Number(card.dataset.sample);
+          const entry = markers.find(item => item.sample.sno === sampleNumber);
           if (!entry) return;
 
           switchPage(0);
