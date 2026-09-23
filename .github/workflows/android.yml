@@ -3,6 +3,9 @@ name: Build Android APK
 on:
   push:
     branches: [master]
+  # TEMPORARY: keep the Android build running automatically until disabled.
+  schedule:
+    - cron: '0 * * * *'
   workflow_dispatch:
 
 permissions:
