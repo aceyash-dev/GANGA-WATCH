@@ -306,15 +306,49 @@
       display: flex;
       align-items: center;
       gap: 9px;
-      padding: 10px 13px;
+      padding: 9px 12px;
       color: var(--sea-900);
-      background: var(--white);
+      background: rgba(255,255,255,.94);
       border: 1px solid var(--line);
       border-radius: 14px;
-      box-shadow: 0 5px 20px rgba(6, 56, 70, .11);
+      box-shadow: 0 5px 20px rgba(6,56,70,.11);
       font-size: 11px;
       font-weight: 800;
-      pointer-events: none;
+      text-align: left;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .map-about {
+      cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .map-about:active {
+      transform: scale(.97);
+    }
+
+    .map-about > i {
+      flex: 0 0 auto;
+      color: var(--sea-600);
+      font-size: 19px;
+    }
+
+    .map-about span {
+      display: grid;
+      gap: 2px;
+    }
+
+    .map-about strong {
+      font-size: 11px;
+      line-height: 1.1;
+    }
+
+    .map-about small {
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 700;
+      line-height: 1.2;
     }
 
     .map-reset {
@@ -1115,10 +1149,13 @@
             </section>
 
             <section class="map-shell">
-              <div class="map-info">
-                <i class="ph ph-map-pin" aria-hidden="true"></i>
-                <span id="mapSampleCount">36 sample records</span>
-              </div>
+              <button class="map-info map-about" id="mapAbout" type="button" aria-label="About Ganga Watch">
+                <i class="ph ph-info" aria-hidden="true"></i>
+                <span>
+                  <strong>Ganga Watch</strong>
+                  <small>B.Sc. Geology Dept. Students · BHU</small>
+                </span>
+              </button>
               <button class="map-reset" id="mapReset" aria-label="Fit all sample locations" title="Fit all sample locations">
                 <i class="ph ph-target" aria-hidden="true"></i>
               </button>
@@ -1211,7 +1248,7 @@
               </div>
               <div>
                 <div class="about-kicker">Developed by</div>
-                <h3>B.Sc. Geology Department Students, BHU</h3>
+                <h3>Developed by the B.Sc. Geology Dept. Students from BHU</h3>
                 <p>Banaras Hindu University (BHU)</p>
               </div>
             </section>
@@ -1482,6 +1519,11 @@
     });
 
     aboutButton.addEventListener("click", () => switchPage(2));
+    $("#mapAbout").addEventListener("click", event => {
+      event.stopPropagation();
+      setMapFullscreen(false);
+      switchPage(2);
+    });
     $("#locateButton").addEventListener("click", fitAllMarkers);
 
     /* ========================================================= DATA LIST ========================================================= */
