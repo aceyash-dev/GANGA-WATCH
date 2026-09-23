@@ -197,8 +197,9 @@
       height: 100%;
       display: flex;
       transform: translate3d(0, 0, 0);
-      transition: transform 420ms cubic-bezier(.2, .8, .2, 1);
+      transition: transform 300ms cubic-bezier(.22, .75, .2, 1);
       will-change: transform;
+      backface-visibility: hidden;
     }
 
     .page {
@@ -603,7 +604,8 @@
     .data-list {
       display: grid;
       gap: 10px;
-      animation: reveal-up 650ms 190ms cubic-bezier(.2,.8,.2,1) both;
+      animation: reveal-up 420ms 120ms cubic-bezier(.22,.75,.2,1) both;
+      contain: layout paint;
     }
 
     .sample-card {
@@ -799,7 +801,33 @@
     }
 
     .marker-reveal {
-      animation: marker-pop 420ms cubic-bezier(.2,.8,.2,1) both;
+      animation: marker-pop 280ms cubic-bezier(.22,.75,.2,1) both;
+    }
+
+    @keyframes marker-breathe {
+      0%, 100% { opacity: .82; }
+      50% { opacity: 1; }
+    }
+
+    .marker-live {
+      animation: marker-breathe 2.8s ease-in-out infinite;
+    }
+
+    .leaflet-tile-pane {
+      will-change: transform;
+      backface-visibility: hidden;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pages,
+      .hero,
+      .map-shell,
+      .data-list,
+      .marker-reveal,
+      .marker-live {
+        animation: none !important;
+        transition: none !important;
+      }
     }
 
     /* ===================================================== MOBILE ===================================================== */
@@ -1226,8 +1254,8 @@
 
       const element = marker.getElement();
       if (element) {
-        element.classList.add("marker-reveal");
-        element.style.animationDelay = `${Math.min(index * 22, 500)}ms`;
+        element.classList.add("marker-reveal", "marker-live");
+        element.style.animationDelay = (Math.min(index * 12, 260)) + "ms";
       }
     });
 
