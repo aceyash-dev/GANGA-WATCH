@@ -172,11 +172,13 @@
       display: grid;
       place-items: center;
       color: var(--sea-700);
-      background: var(--white);
-      border: 1px solid var(--line);
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(255,255,255,.92);
       border-radius: 14px;
-      box-shadow: 0 5px 18px rgba(6, 56, 70, .08);
-      transition: transform 180ms ease, background 180ms ease;
+      box-shadow: 0 5px 18px rgba(6,56,70,.10), inset 0 1px 0 rgba(255,255,255,.9);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
     }
 
     .header-action:active {
@@ -990,16 +992,44 @@
       position: absolute;
       z-index: 501;
       top: 16px;
-      right: 66px;
+      right: 16px;
       width: 42px;
       height: 42px;
       display: grid;
       place-items: center;
       color: var(--sea-700);
-      background: var(--white);
-      border: 1px solid var(--line);
+      background: rgba(255,255,255,.76);
+      border: 1px solid rgba(255,255,255,.94);
       border-radius: 13px;
-      box-shadow: 0 5px 20px rgba(6,56,70,.11);
+      box-shadow: 0 5px 20px rgba(6,56,70,.12), inset 0 1px 0 rgba(255,255,255,.9);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      transition: transform 180ms ease, background 180ms ease;
+    }
+
+    .leaflet-control-layers {
+      color: var(--sea-900);
+      background: rgba(255,255,255,.78) !important;
+      border: 1px solid rgba(255,255,255,.94) !important;
+      border-radius: 13px !important;
+      box-shadow: 0 5px 20px rgba(6,56,70,.12), inset 0 1px 0 rgba(255,255,255,.9) !important;
+      overflow: hidden;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+
+    .leaflet-control-layers-toggle {
+      width: 42px !important;
+      height: 42px !important;
+      background-size: 20px 20px !important;
+      background-position: center !important;
+    }
+
+    .leaflet-control-layers-expanded {
+      padding: 9px 11px;
+      line-height: 1.7;
+      font-size: 11px;
+      font-weight: 700;
     }
 
     /* ===================================================== MOBILE ===================================================== */
@@ -1032,7 +1062,12 @@
         top: 10px;
         left: 10px;
       }
-      .map-reset {
+      .map-fullscreen-toggle {
+        top: 10px;
+        right: 10px;
+      }
+
+      .leaflet-top.leaflet-right {
         top: 10px;
         right: 10px;
       }
@@ -1149,16 +1184,6 @@
             </section>
 
             <section class="map-shell">
-              <button class="map-info map-about" id="mapAbout" type="button" aria-label="About Ganga Watch">
-                <i class="ph ph-info" aria-hidden="true"></i>
-                <span>
-                  <strong>Ganga Watch</strong>
-                  <small>B.Sc. Geology Dept. Students · BHU</small>
-                </span>
-              </button>
-              <button class="map-reset" id="mapReset" aria-label="Fit all sample locations" title="Fit all sample locations">
-                <i class="ph ph-target" aria-hidden="true"></i>
-              </button>
               <button class="map-fullscreen-toggle" id="mapFullscreen" aria-label="Fullscreen map" title="Fullscreen map">
                 <i class="ph ph-arrows-out" aria-hidden="true"></i>
               </button>
@@ -1282,10 +1307,6 @@
       <button class="nav-item" data-page="1" aria-label="Data">
         <i class="ph ph-database" aria-hidden="true"></i>
         <span class="nav-label">Data</span>
-      </button>
-      <button class="nav-item" data-page="2" aria-label="About">
-        <i class="ph ph-info" aria-hidden="true"></i>
-        <span class="nav-label">About</span>
       </button>
     </nav>
   </div>
@@ -1415,12 +1436,6 @@
     const bounds = mappedSamples.length
       ? L.latLngBounds(mappedSamples.map(sample => [sample.lat, sample.lng]))
       : null;
-
-    $("#mapSampleCount").textContent =
-      mappedSamples.length === samples.length
-        ? `${samples.length} mapped sample locations`
-        : `${samples.length} sample records · ${mappedSamples.length} mapped locations`;
-
     function colorForStatus(status) {
       if (status === "Drinkable") return "#087a61";
       if (status === "Dirty") return "#b86613";
@@ -1518,13 +1533,7 @@
       if (!mapShell.classList.contains("map-fullscreen")) setMapFullscreen(true);
     });
 
-    aboutButton.addEventListener("click", () => switchPage(2));
-    $("#mapAbout").addEventListener("click", event => {
-      event.stopPropagation();
-      setMapFullscreen(false);
-      switchPage(2);
-    });
-    $("#locateButton").addEventListener("click", fitAllMarkers);
+    aboutButton.addEventListener("click", () => switchPage(2));    $("#locateButton").addEventListener("click", fitAllMarkers);
 
     /* ========================================================= DATA LIST ========================================================= */
     const dataList = $("#dataList");
