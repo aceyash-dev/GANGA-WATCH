@@ -193,7 +193,7 @@
     }
 
     .pages {
-      width: 200%;
+      width: 300%;
       height: 100%;
       display: flex;
       transform: translate3d(0, 0, 0);
@@ -203,9 +203,9 @@
     }
 
     .page {
-      width: 50%;
+      width: 33.333333%;
       height: 100%;
-      flex: 0 0 50%;
+      flex: 0 0 33.333333%;
       min-width: 0;
       overflow-y: auto;
       overflow-x: hidden;
@@ -830,6 +830,144 @@
       }
     }
 
+    /* ===================================================== ABOUT ===================================================== */
+    .about-hero {
+      padding: 35px 0 25px;
+      animation: reveal-up 420ms cubic-bezier(.22,.75,.2,1) both;
+    }
+
+    .about-hero h2 {
+      margin: 0;
+      color: var(--sea-900);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(48px, 7vw, 82px);
+      line-height: .98;
+      font-weight: 600;
+      letter-spacing: -.045em;
+    }
+
+    .about-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 22px;
+      margin-bottom: 12px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: 0 8px 26px rgba(6,56,70,.06);
+    }
+
+    .about-card-plain {
+      display: grid;
+      gap: 0;
+    }
+
+    .about-icon {
+      width: 54px;
+      height: 54px;
+      flex: 0 0 54px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--sea-600);
+      border-radius: 17px;
+      font-size: 25px;
+    }
+
+    .about-kicker {
+      color: var(--sea-600);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .about-card h3 {
+      margin: 4px 0 2px;
+      color: var(--sea-900);
+      font-size: 18px;
+      line-height: 1.25;
+    }
+
+    .about-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .about-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+      padding: 15px 0;
+    }
+
+    .about-row + .about-row {
+      border-top: 1px solid var(--line);
+    }
+
+    .about-row > i {
+      margin-top: 2px;
+      color: var(--sea-600);
+      font-size: 21px;
+    }
+
+    .about-row div {
+      display: grid;
+      gap: 3px;
+    }
+
+    .about-row strong {
+      color: var(--sea-900);
+      font-size: 13px;
+    }
+
+    .about-row span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    /* ===================================================== FULLSCREEN MAP ===================================================== */
+    .map-shell.map-fullscreen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      width: 100vw;
+      height: 100dvh;
+      min-height: 0;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      animation: none;
+    }
+
+    .map-shell.map-fullscreen #map {
+      height: 100%;
+    }
+
+    .map-shell.map-fullscreen .map-info {
+      top: max(12px, env(safe-area-inset-top));
+    }
+
+    .map-fullscreen-toggle {
+      position: absolute;
+      z-index: 501;
+      top: 16px;
+      right: 66px;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      color: var(--sea-700);
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      box-shadow: 0 5px 20px rgba(6,56,70,.11);
+    }
+
     /* ===================================================== MOBILE ===================================================== */
     @media (max-width: 720px) {
       .header-inner, .page-inner {
@@ -953,8 +1091,8 @@
             <div class="brand-subtitle">Water quality · Varanasi</div>
           </div>
         </div>
-        <button class="header-action" id="locateButton" aria-label="Show all sample locations" title="Show all sample locations">
-          <i class="ph ph-map-pin" aria-hidden="true"></i>
+        <button class="header-action" id="aboutButton" aria-label="About Ganga Watch" title="About Ganga Watch">
+          <i class="ph ph-info" aria-hidden="true"></i>
         </button>
       </div>
     </header>
@@ -983,6 +1121,9 @@
               </div>
               <button class="map-reset" id="mapReset" aria-label="Fit all sample locations" title="Fit all sample locations">
                 <i class="ph ph-target" aria-hidden="true"></i>
+              </button>
+              <button class="map-fullscreen-toggle" id="mapFullscreen" aria-label="Fullscreen map" title="Fullscreen map">
+                <i class="ph ph-arrows-out" aria-hidden="true"></i>
               </button>
               <div id="map"></div>
               <div class="map-legend">
@@ -1050,6 +1191,49 @@
           </div>
         </section>
       </div>
+        <!-- ================================================= ABOUT PAGE ================================================= -->
+        <section class="page" id="aboutPage" aria-label="About Ganga Watch">
+          <div class="page-inner">
+            <section class="about-hero">
+              <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                About Ganga Watch
+              </div>
+              <h2>Science for<br>the river.</h2>
+              <p class="hero-text">
+                Ganga Watch is a student-led water-quality observation project built to document field measurements and make them easier to explore.
+              </p>
+            </section>
+
+            <section class="about-card">
+              <div class="about-icon">
+                <i class="ph ph-drop" aria-hidden="true"></i>
+              </div>
+              <div>
+                <div class="about-kicker">Developed by</div>
+                <h3>B.Sc. Geology Department Students</h3>
+                <p>Banaras Hindu University (BHU)</p>
+              </div>
+            </section>
+
+            <section class="about-card about-card-plain">
+              <div class="about-row">
+                <i class="ph ph-map-trifold" aria-hidden="true"></i>
+                <div>
+                  <strong>Field observations</strong>
+                  <span>Water-quality measurements from Varanasi sample locations.</span>
+                </div>
+              </div>
+              <div class="about-row">
+                <i class="ph ph-chart-line-up" aria-hidden="true"></i>
+                <div>
+                  <strong>Open exploration</strong>
+                  <span>Browse measurements, compare locations, and inspect mapped samples.</span>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
     </main>
 
     <!-- ===================================================== FLOATING NAV ===================================================== -->
@@ -1061,6 +1245,10 @@
       <button class="nav-item" data-page="1" aria-label="Data">
         <i class="ph ph-database" aria-hidden="true"></i>
         <span class="nav-label">Data</span>
+      </button>
+      <button class="nav-item" data-page="2" aria-label="About">
+        <i class="ph ph-info" aria-hidden="true"></i>
+        <span class="nav-label">About</span>
       </button>
     </nav>
   </div>
@@ -1267,6 +1455,33 @@
     fitAllMarkers();
 
     $("#mapReset").addEventListener("click", fitAllMarkers);
+
+    const mapShell = document.querySelector(".map-shell");
+    const mapFullscreen = $("#mapFullscreen");
+    const aboutButton = $("#aboutButton");
+
+    function setMapFullscreen(enabled) {
+      mapShell.classList.toggle("map-fullscreen", enabled);
+      mapFullscreen.innerHTML = enabled
+        ? '<i class="ph ph-arrows-in" aria-hidden="true"></i>'
+        : '<i class="ph ph-arrows-out" aria-hidden="true"></i>';
+      mapFullscreen.setAttribute("aria-label", enabled ? "Exit fullscreen map" : "Fullscreen map");
+      map.invalidateSize();
+    }
+
+    mapFullscreen.addEventListener("click", event => {
+      event.stopPropagation();
+      setMapFullscreen(!mapShell.classList.contains("map-fullscreen"));
+    });
+
+    mapShell.addEventListener("click", event => {
+      if (
+        event.target.closest(".leaflet-control, .leaflet-popup, .map-info, .map-reset, .map-fullscreen-toggle, .map-legend")
+      ) return;
+      if (!mapShell.classList.contains("map-fullscreen")) setMapFullscreen(true);
+    });
+
+    aboutButton.addEventListener("click", () => switchPage(2));
     $("#locateButton").addEventListener("click", fitAllMarkers);
 
     /* ========================================================= DATA LIST ========================================================= */
@@ -1375,11 +1590,11 @@
     let currentPage = 0;
 
     function switchPage(pageIndex, animate = true) {
-      pageIndex = Math.max(0, Math.min(1, pageIndex));
+      pageIndex = Math.max(0, Math.min(2, pageIndex));
       currentPage = pageIndex;
 
       pages.style.transition = animate ? "transform 420ms cubic-bezier(.2,.8,.2,1)" : "none";
-      pages.style.transform = `translate3d(-${pageIndex * 50}%, 0, 0)`;
+      pages.style.transform = `translate3d(-${pageIndex * 33.333333}%, 0, 0)`;
 
       navItems.forEach((item, index) => {
         const active = index === pageIndex;
@@ -1391,7 +1606,7 @@
         }
       });
 
-      const activePage = pageIndex === 0 ? $("#mapPage") : $("#dataPage");
+      const activePage = pageIndex === 0 ? $("#mapPage") : pageIndex === 1 ? $("#dataPage") : $("#aboutPage");
       activePage.classList.remove("entering");
       void activePage.offsetWidth;
       activePage.classList.add("entering");
@@ -1436,14 +1651,15 @@
 
       if (!isHorizontal) return;
 
-      if (dx < 0 && currentPage === 0) switchPage(1);
-      if (dx > 0 && currentPage === 1) switchPage(0);
+      if (dx < 0 && currentPage < 2) switchPage(currentPage + 1);
+      if (dx > 0 && currentPage > 0) switchPage(currentPage - 1);
     }, { passive: true });
 
     /* ========================================================= KEYBOARD NAVIGATION ========================================================= */
     document.addEventListener("keydown", event => {
-      if (event.key === "ArrowRight") switchPage(1);
-      if (event.key === "ArrowLeft") switchPage(0);
+      if (event.key === "ArrowRight") switchPage(Math.min(2, currentPage + 1));
+      if (event.key === "ArrowLeft") switchPage(Math.max(0, currentPage - 1));
+      if (event.key === "Escape" && mapShell.classList.contains("map-fullscreen")) setMapFullscreen(false);
     });
 
     /* ========================================================= INITIAL REVEAL ========================================================= */
