@@ -78,6 +78,15 @@
     button {
       border: 0;
       cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      user-select: none;
+      touch-action: manipulation;
+      outline: none;
+    }
+
+    button:focus:not(:focus-visible) {
+      outline: none;
     }
 
     ::selection {
@@ -108,6 +117,80 @@
       height: 100dvh;
       overflow: hidden;
       background: var(--ice-0);
+    }
+
+    /* ===================================================== LIQUID GLASS MOTION ===================================================== */
+    .brand,
+    .header-action,
+    .map-fullscreen-toggle,
+    .floating-nav {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .brand::before,
+    .header-action::before,
+    .map-fullscreen-toggle::before,
+    .floating-nav::before {
+      content: "";
+      position: absolute;
+      inset: -70% -45%;
+      z-index: -1;
+      pointer-events: none;
+      background: linear-gradient(
+        112deg,
+        transparent 40%,
+        rgba(255,255,255,.32) 48%,
+        rgba(255,255,255,.08) 54%,
+        transparent 62%
+      );
+      transform: translate3d(-42%,0,0) rotate(5deg);
+      animation: liquid-glass-sheen 7s cubic-bezier(.4,0,.2,1) infinite;
+    }
+
+    .brand,
+    .header-action,
+    .map-fullscreen-toggle,
+    .floating-nav {
+      transition:
+        transform 420ms cubic-bezier(.22,1,.36,1),
+        box-shadow 420ms cubic-bezier(.22,1,.36,1),
+        background-color 260ms ease;
+    }
+
+    .brand:active,
+    .header-action:active,
+    .map-fullscreen-toggle:active {
+      transform: scale(.965);
+    }
+
+    .floating-nav.is-animating {
+      animation: liquid-glass-lift 420ms cubic-bezier(.22,1,.36,1);
+    }
+
+    @keyframes liquid-glass-sheen {
+      0%, 38% {
+        transform: translate3d(-42%,0,0) rotate(5deg);
+        opacity: 0;
+      }
+      48% { opacity: 1; }
+      62%, 100% {
+        transform: translate3d(42%,0,0) rotate(5deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes liquid-glass-lift {
+      0% {
+        transform: translateX(-50%) translateY(2px) scale(.985);
+      }
+      52% {
+        transform: translateX(-50%) translateY(-1px) scale(1.012);
+      }
+      100% {
+        transform: translateX(-50%) translateY(0) scale(1);
+      }
     }
 
     /* ===================================================== HEADER ===================================================== */
@@ -817,7 +900,12 @@
       .map-shell,
       .data-list,
       .marker-reveal,
-      .marker-live {
+      .marker-live,
+      .brand::before,
+      .header-action::before,
+      .map-fullscreen-toggle::before,
+      .floating-nav::before,
+      .floating-nav.is-animating {
         animation: none !important;
         transition: none !important;
       }
@@ -831,7 +919,42 @@
 
     .about-hero {
       padding: 35px 0 25px;
-      animation: reveal-up 420ms cubic-bezier(.22,.75,.2,1) both;
+    }
+
+    #aboutPage.entering .about-hero {
+      animation: about-enter 480ms cubic-bezier(.22,1,.36,1) both;
+    }
+
+    #aboutPage.entering .about-card {
+      animation: about-card-enter 460ms cubic-bezier(.22,1,.36,1) both;
+    }
+
+    #aboutPage.entering .about-card:nth-of-type(2) {
+      animation-delay: 70ms;
+    }
+
+    @keyframes about-enter {
+      from {
+        opacity: 0;
+        transform: translate3d(0,20px,0) scale(.985);
+        filter: blur(3px);
+      }
+      to {
+        opacity: 1;
+        transform: translate3d(0,0,0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes about-card-enter {
+      from {
+        opacity: 0;
+        transform: translate3d(0,18px,0) scale(.985);
+      }
+      to {
+        opacity: 1;
+        transform: translate3d(0,0,0) scale(1);
+      }
     }
 
     .about-hero h2 {
@@ -855,7 +978,12 @@
       background: var(--white);
       border: 1px solid var(--line);
       border-radius: 22px;
-      box-shadow: 0 8px 26px rgba(6,56,70,.06);
+      background: rgba(255,255,255,.60);
+      border: 1px solid rgba(255,255,255,.82);
+      box-shadow: 0 10px 30px rgba(6,56,70,.10), inset 0 1px 0 rgba(255,255,255,.90);
+      -webkit-backdrop-filter: blur(15px) saturate(1.12);
+      backdrop-filter: blur(15px) saturate(1.12);
+      transition: transform 360ms cubic-bezier(.22,1,.36,1), box-shadow 360ms ease;
     }
 
     .about-card-plain {
@@ -1219,7 +1347,7 @@
             <section class="data-list" id="dataList" aria-live="polite"></section>
           </div>
         </section>
-      </div>
+
         <!-- ================================================= ABOUT PAGE ================================================= -->
         <section class="page" id="aboutPage" aria-label="About Ganga Watch">
           <div class="page-inner">
@@ -1263,6 +1391,7 @@
             </section>
           </div>
         </section>
+      </div>
     </main>
 
     <!-- ===================================================== FLOATING NAV ===================================================== -->
@@ -1616,7 +1745,7 @@
       pages.style.transform = `translate3d(-${pageIndex * 33.333333}%, 0, 0)`;
 
       navItems.forEach((item, index) => {
-        const active = index === pageIndex;
+        const active = pageIndex < 2 && index === pageIndex;
         item.classList.toggle("active", active);
         if (active) {
           item.setAttribute("aria-current", "page");
@@ -1647,6 +1776,9 @@
       item.addEventListener("click", () => {
         if (currentPage !== index) {
           switchPage(index);
+          const nav = document.querySelector(".floating-nav");
+          nav.classList.remove("is-animating");
+          requestAnimationFrame(() => nav.classList.add("is-animating"));
         }
       });
     });
@@ -1708,6 +1840,7 @@
 
     /* ========================================================= INITIAL REVEAL ========================================================= */
     window.requestAnimationFrame(() => {
+      switchPage(0, false);
       $("#mapPage").classList.add("entering");
     });
 
