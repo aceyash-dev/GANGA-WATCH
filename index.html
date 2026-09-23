@@ -116,6 +116,13 @@
       inset: 0 0 auto 0;
       z-index: 1000;
       pointer-events: none;
+      transform: translate3d(0, 0, 0);
+      transition: transform 360ms cubic-bezier(.22, 1, .36, 1);
+      will-change: transform;
+    }
+
+    .app-header.is-hidden {
+      transform: translate3d(0, calc(-100% - 18px), 0);
     }
 
     .header-inner {
@@ -133,10 +140,12 @@
       align-items: center;
       gap: 11px;
       padding: 9px 13px 9px 9px;
-      background: var(--white);
-      border: 1px solid var(--line);
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(255,255,255,.88);
       border-radius: 18px;
-      box-shadow: 0 5px 18px rgba(6, 56, 70, .08);
+      box-shadow: 0 7px 24px rgba(6,56,70,.10), inset 0 1px 0 rgba(255,255,255,.92);
+      -webkit-backdrop-filter: blur(16px) saturate(1.12);
+      backdrop-filter: blur(16px) saturate(1.12);
     }
 
     .brand-mark {
@@ -172,12 +181,12 @@
       display: grid;
       place-items: center;
       color: var(--sea-700);
-      background: rgba(255,255,255,.72);
-      border: 1px solid rgba(255,255,255,.92);
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(255,255,255,.88);
       border-radius: 14px;
-      box-shadow: 0 5px 18px rgba(6,56,70,.10), inset 0 1px 0 rgba(255,255,255,.9);
-      -webkit-backdrop-filter: none;
-      backdrop-filter: none;
+      box-shadow: 0 7px 24px rgba(6,56,70,.10), inset 0 1px 0 rgba(255,255,255,.92);
+      -webkit-backdrop-filter: blur(16px) saturate(1.12);
+      backdrop-filter: blur(16px) saturate(1.12);
       transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
     }
 
@@ -199,7 +208,7 @@
       height: 100%;
       display: flex;
       transform: translate3d(0, 0, 0);
-      transition: transform 300ms cubic-bezier(.22, .75, .2, 1);
+      transition: transform 340ms cubic-bezier(.25, .9, .25, 1);
       will-change: transform;
       backface-visibility: hidden;
     }
@@ -299,81 +308,6 @@
       height: 100%;
     }
 
-    .map-info {
-      position: absolute;
-      z-index: 500;
-      top: 16px;
-      left: 16px;
-      max-width: calc(100% - 80px);
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      padding: 9px 12px;
-      color: var(--sea-900);
-      background: rgba(255,255,255,.94);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      box-shadow: 0 5px 20px rgba(6,56,70,.11);
-      font-size: 11px;
-      font-weight: 800;
-      text-align: left;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-
-    .map-about {
-      cursor: pointer;
-      transition: transform 180ms ease, box-shadow 180ms ease;
-    }
-
-    .map-about:active {
-      transform: scale(.97);
-    }
-
-    .map-about > i {
-      flex: 0 0 auto;
-      color: var(--sea-600);
-      font-size: 19px;
-    }
-
-    .map-about span {
-      display: grid;
-      gap: 2px;
-    }
-
-    .map-about strong {
-      font-size: 11px;
-      line-height: 1.1;
-    }
-
-    .map-about small {
-      color: var(--muted);
-      font-size: 9px;
-      font-weight: 700;
-      line-height: 1.2;
-    }
-
-    .map-reset {
-      position: absolute;
-      z-index: 500;
-      top: 16px;
-      right: 16px;
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      color: var(--sea-700);
-      background: var(--white);
-      border: 1px solid var(--line);
-      border-radius: 13px;
-      box-shadow: 0 5px 20px rgba(6, 56, 70, .11);
-      transition: transform 180ms ease;
-    }
-
-    .map-reset:active {
-      transform: scale(.93);
-    }
-
     .map-legend {
       position: absolute;
       z-index: 500;
@@ -393,10 +327,12 @@
       gap: 6px;
       padding: 8px 10px;
       color: var(--ink);
-      background: var(--white);
-      border: 1px solid var(--line);
+      background: rgba(255,255,255,.70);
+      border: 1px solid rgba(255,255,255,.88);
       border-radius: 999px;
-      box-shadow: 0 4px 16px rgba(6, 56, 70, .08);
+      box-shadow: 0 6px 20px rgba(6,56,70,.10), inset 0 1px 0 rgba(255,255,255,.9);
+      -webkit-backdrop-filter: blur(12px) saturate(1.08);
+      backdrop-filter: blur(12px) saturate(1.08);
       font-size: 10px;
       font-weight: 800;
     }
@@ -432,19 +368,21 @@
     }
 
     .leaflet-control-layers {
-      margin-top: 62px !important;
-      border: 1px solid var(--line) !important;
+      margin-top: 0 !important;
+      border: 1px solid rgba(255,255,255,.88) !important;
       border-radius: 13px !important;
-      box-shadow: 0 5px 20px rgba(6, 56, 70, .11) !important;
+      box-shadow: 0 7px 24px rgba(6,56,70,.11), inset 0 1px 0 rgba(255,255,255,.9) !important;
       font-family: "Manrope", sans-serif;
       font-size: 11px;
       font-weight: 700;
+      -webkit-backdrop-filter: blur(14px) saturate(1.1);
+      backdrop-filter: blur(14px) saturate(1.1);
     }
 
     .leaflet-control-layers-toggle {
       width: 42px !important;
       height: 42px !important;
-      background-color: var(--white) !important;
+      background-color: rgba(255,255,255,.68) !important;
       background-size: 19px 19px !important;
     }
 
@@ -778,14 +716,17 @@
       align-items: center;
       gap: 5px;
       padding: 6px;
-      background: var(--white);
-      border: 1px solid var(--line);
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(255,255,255,.88);
       border-radius: 22px;
-      box-shadow: var(--nav-shadow);
+      box-shadow: 0 10px 34px rgba(6,56,70,.14), inset 0 1px 0 rgba(255,255,255,.92);
+      -webkit-backdrop-filter: blur(18px) saturate(1.14);
+      backdrop-filter: blur(18px) saturate(1.14);
     }
 
     .nav-item {
       height: 50px;
+      width: 50px;
       min-width: 50px;
       padding: 0 13px;
       display: inline-flex;
@@ -797,13 +738,15 @@
       border-radius: 16px;
       font-size: 12px;
       font-weight: 800;
-      transition: min-width 300ms cubic-bezier(.2,.8,.2,1), padding 300ms cubic-bezier(.2,.8,.2,1), background 250ms ease, color 250ms ease, transform 180ms ease;
+      transition: width 420ms cubic-bezier(.34, 1.32, .64, 1), padding 420ms cubic-bezier(.34, 1.32, .64, 1), background 260ms ease, color 220ms ease, transform 180ms cubic-bezier(.25,.9,.25,1), box-shadow 260ms ease;
     }
 
     .nav-item.active {
+      width: 112px;
       min-width: 112px;
       color: white;
       background: var(--sea-600);
+      box-shadow: 0 5px 14px rgba(8,119,143,.22);
     }
 
     .nav-label {
@@ -812,7 +755,7 @@
       overflow: hidden;
       white-space: nowrap;
       transform: translateX(-5px);
-      transition: max-width 300ms cubic-bezier(.2,.8,.2,1), opacity 180ms ease, transform 300ms cubic-bezier(.2,.8,.2,1);
+      transition: max-width 360ms cubic-bezier(.34, 1.32, .64, 1), opacity 180ms ease, transform 360ms cubic-bezier(.34, 1.32, .64, 1);
     }
 
     .nav-item.active .nav-label {
@@ -825,10 +768,19 @@
       transform: scale(.94);
     }
 
+    .page.entering .page-inner {
+      animation: page-settle 360ms cubic-bezier(.22, 1, .36, 1) both;
+    }
+
     /* ===================================================== REVEAL ===================================================== */
     @keyframes reveal-up {
       from { opacity: 0; transform: translateY(22px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes page-settle {
+      from { opacity: .86; transform: translate3d(0, 7px, 0) scale(.992); }
+      to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
     }
 
     @keyframes marker-pop {
@@ -998,13 +950,13 @@
       display: grid;
       place-items: center;
       color: var(--sea-700);
-      background: rgba(255,255,255,.76);
-      border: 1px solid rgba(255,255,255,.94);
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(255,255,255,.88);
       border-radius: 13px;
-      box-shadow: 0 5px 20px rgba(6,56,70,.12), inset 0 1px 0 rgba(255,255,255,.9);
-      -webkit-backdrop-filter: none;
-      backdrop-filter: none;
-      transition: transform 180ms ease, background 180ms ease;
+      box-shadow: 0 7px 24px rgba(6,56,70,.11), inset 0 1px 0 rgba(255,255,255,.92);
+      -webkit-backdrop-filter: blur(14px) saturate(1.1);
+      backdrop-filter: blur(14px) saturate(1.1);
+      transition: transform 180ms cubic-bezier(.25,.9,.25,1), background 180ms ease, box-shadow 180ms ease;
     }
 
     .leaflet-top.leaflet-right {
@@ -1074,7 +1026,7 @@
 
       .leaflet-top.leaflet-right {
         top: 10px;
-        right: 66px;
+        right: 62px;
       }
       .map-legend {
         right: 10px;
@@ -1119,6 +1071,7 @@
         min-width: 48px;
       }
       .nav-item.active {
+        width: 105px;
         min-width: 105px;
       }
     }
@@ -1511,8 +1464,6 @@
 
     fitAllMarkers();
 
-    $("#mapReset").addEventListener("click", fitAllMarkers);
-
     const mapShell = document.querySelector(".map-shell");
     const mapFullscreen = $("#mapFullscreen");
     const aboutButton = $("#aboutButton");
@@ -1538,7 +1489,7 @@
       if (!mapShell.classList.contains("map-fullscreen")) setMapFullscreen(true);
     });
 
-    aboutButton.addEventListener("click", () => switchPage(2));    $("#locateButton").addEventListener("click", fitAllMarkers);
+    aboutButton.addEventListener("click", () => switchPage(2));
 
     /* ========================================================= DATA LIST ========================================================= */
     const dataList = $("#dataList");
@@ -1643,13 +1594,15 @@
     /* ========================================================= TAB NAVIGATION ========================================================= */
     const pages = $("#pages");
     const navItems = [...document.querySelectorAll(".nav-item")];
+    const appHeader = $(".app-header");
     let currentPage = 0;
 
     function switchPage(pageIndex, animate = true) {
       pageIndex = Math.max(0, Math.min(2, pageIndex));
       currentPage = pageIndex;
+      appHeader.classList.remove("is-hidden");
 
-      pages.style.transition = animate ? "transform 420ms cubic-bezier(.2,.8,.2,1)" : "none";
+      pages.style.transition = animate ? "transform 340ms cubic-bezier(.22, 1, .36, 1)" : "none";
       pages.style.transform = `translate3d(-${pageIndex * 33.333333}%, 0, 0)`;
 
       navItems.forEach((item, index) => {
@@ -1710,6 +1663,25 @@
       if (dx < 0 && currentPage < 2) switchPage(currentPage + 1);
       if (dx > 0 && currentPage > 0) switchPage(currentPage - 1);
     }, { passive: true });
+
+    /* ========================================================= SCROLLING HEADER ========================================================= */
+    const scrollPages = [...document.querySelectorAll(".page")];
+    const scrollPositions = new WeakMap();
+
+    scrollPages.forEach(page => {
+      page.addEventListener("scroll", () => {
+        const current = page.scrollTop;
+        const previous = scrollPositions.get(page) ?? 0;
+        const delta = current - previous;
+        scrollPositions.set(page, current);
+
+        if (current <= 8 || delta < -4) {
+          appHeader.classList.remove("is-hidden");
+        } else if (delta > 4 && current > 32) {
+          appHeader.classList.add("is-hidden");
+        }
+      }, { passive: true });
+    });
 
     /* ========================================================= KEYBOARD NAVIGATION ========================================================= */
     document.addEventListener("keydown", event => {
