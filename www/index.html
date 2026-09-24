@@ -1736,8 +1736,8 @@
       markerZoomAnimation: false,
       maxBounds: studyBounds,
       maxBoundsViscosity: 1,
-      minZoom: 11,
-      maxZoom: 14
+      minZoom: 5,
+      maxZoom: 19
     });
 
     L.control.zoom({ position: "bottomleft" }).addTo(map);
@@ -1749,7 +1749,7 @@
     const osmStreet = L.tileLayer(
       "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
       {
-        maxZoom: 14,
+        maxZoom: 19,
         bounds: studyBounds,
         keepBuffer: 0,
         updateWhenIdle: true,
@@ -1861,7 +1861,7 @@
 
     function fitAllMarkers() {
       if (!bounds || !bounds.isValid()) return;
-      map.fitBounds(bounds, { padding: [45, 45], maxZoom: 14, animate: false });
+      map.fitBounds(bounds, { padding: [45, 45], maxZoom: 16, animate: false });
     }
 
     fitAllMarkers();
