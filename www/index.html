@@ -20,6 +20,8 @@
   <!-- ===================================================== LEAFLET ===================================================== -->
   <link rel="preload" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" as="style" crossorigin onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin></noscript>
+  <link rel="preload" href="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.css" as="style" crossorigin onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.css" crossorigin></noscript>
 
   <style>
     /* ===================================================== THEME ===================================================== */
@@ -1600,6 +1602,8 @@
 
   <!-- ======================================================= SCRIPTS ======================================================= -->
   <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script defer src="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.js" crossorigin=""></script>
+  <script defer src="https://unpkg.com/@maplibre/maplibre-gl-leaflet/leaflet-maplibre-gl.js" crossorigin=""></script>
 
   <script>
     window.addEventListener("DOMContentLoaded", () => {
@@ -1737,6 +1741,10 @@
 
     L.control.zoom({ position: "bottomleft" }).addTo(map);
 
+    const openFreeMap = L.maplibreGL({
+      style: "https://tiles.openfreemap.org/styles/liberty"
+    });
+
     const osmStreet = L.tileLayer(
       "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
       {
@@ -1769,11 +1777,15 @@
       }
     );
 
-    osmStreet.addTo(map);
+    openFreeMap.addTo(map);
+    map.attributionControl.addAttribution(
+      'OpenFreeMap &copy; OpenMapTiles Data from <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>'
+    );
 
     L.control.layers(
       {
-        "Street": osmStreet,
+        "Geographical": openFreeMap,
+        "OSM Street": osmStreet,
         "Satellite": nimboFree
       },
       null,
