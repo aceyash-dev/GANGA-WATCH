@@ -1912,15 +1912,15 @@
     function siteTypeForSample(sample) {
       const location = String(sample.location || "").toLowerCase();
 
-      if (/\\bwell\\b|\\bkoop\\b/.test(location)) {
+      if (/\bwell\b|\bkoop\b/.test(location)) {
         return { key: "well", icon: "ph-cylinder", label: "Well / Koop" };
       }
 
-      if (/\\bkund\\b/.test(location)) {
+      if (/\bkund\b/.test(location)) {
         return { key: "kund", icon: "ph-waves", label: "Kund" };
       }
 
-      if (/water supply|cooler supply|\\bpump\\b/.test(location)) {
+      if (/water supply|cooler supply|\bpump\b/.test(location)) {
         return { key: "supply", icon: "ph-drop", label: "Supply / Pump" };
       }
 
