@@ -49,10 +49,10 @@
       --glass-clear: rgba(255,255,255,.13);
       --glass-clear-strong: rgba(255,255,255,.22);
       --glass-line: rgba(255,255,255,.72);
-      --radius-xl: 28px;
-      --radius-lg: 22px;
-      --radius-md: 16px;
-      --radius-sm: 12px;
+      --radius-xl: 32px;
+      --radius-lg: 26px;
+      --radius-md: 20px;
+      --radius-sm: 14px;
     }
 
     /* ===================================================== RESET ===================================================== */
@@ -230,6 +230,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 10px;
     }
 
     .brand {
@@ -240,7 +241,7 @@
       min-height: 54px;
       background: var(--glass-clear);
       border: 1px solid var(--glass-line);
-      border-radius: 18px;
+      border-radius: 20px;
       box-shadow: 0 10px 30px rgba(6,56,70,.09), inset 0 1px 0 rgba(255,255,255,.78);
       -webkit-backdrop-filter: blur(10px) saturate(1.08);
       backdrop-filter: blur(16px) saturate(1.12);
@@ -254,17 +255,16 @@
     }
 
     .header-action {
-      display: none;
       pointer-events: auto;
-      width: 43px;
-      height: 43px;
+      width: 48px;
+      height: 48px;
       display: grid;
       place-items: center;
       color: var(--sea-700);
       background: rgba(255,255,255,.68);
       border: 1px solid rgba(255,255,255,.88);
-      border-radius: 14px;
-      box-shadow: 0 7px 24px rgba(6,56,70,.10), inset 0 1px 0 rgba(255,255,255,.92);
+      border-radius: 18px;
+      box-shadow: 0 8px 24px rgba(6,56,70,.09), inset 0 1px 0 rgba(255,255,255,.92);
       -webkit-backdrop-filter: blur(16px) saturate(1.12);
       backdrop-filter: blur(16px) saturate(1.12);
       transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
@@ -847,12 +847,12 @@
       align-items: center;
       gap: 5px;
       padding: 6px;
-      background: rgba(255,255,255,.68);
-      border: 1px solid rgba(255,255,255,.88);
-      border-radius: 22px;
-      box-shadow: 0 12px 34px rgba(6,56,70,.11), inset 0 1px 0 rgba(255,255,255,.78);
-      -webkit-backdrop-filter: blur(10px) saturate(1.08);
-      backdrop-filter: blur(18px) saturate(1.14);
+      background: var(--glass-clear);
+      border: 1px solid var(--glass-line);
+      border-radius: 28px;
+      box-shadow: 0 10px 28px rgba(6,56,70,.10), inset 0 1px 0 rgba(255,255,255,.86);
+      -webkit-backdrop-filter: blur(8px) saturate(1.05);
+      backdrop-filter: blur(10px) saturate(1.08);
     }
 
     .nav-item {
@@ -866,7 +866,7 @@
       gap: 8px;
       color: var(--muted);
       background: transparent;
-      border-radius: 16px;
+      border-radius: 18px;
       font-size: 12px;
       font-weight: 800;
       transition: width 420ms cubic-bezier(.34, 1.32, .64, 1), padding 420ms cubic-bezier(.34, 1.32, .64, 1), background 260ms ease, color 220ms ease, transform 180ms cubic-bezier(.25,.9,.25,1), box-shadow 260ms ease;
@@ -876,8 +876,11 @@
       width: 112px;
       min-width: 112px;
       color: white;
-      background: var(--sea-600);
-      box-shadow: 0 5px 14px rgba(8,119,143,.22);
+      background: rgba(8,119,143,.84);
+      border: 1px solid rgba(255,255,255,.26);
+      box-shadow: 0 5px 14px rgba(8,119,143,.18), inset 0 1px 0 rgba(255,255,255,.24);
+      -webkit-backdrop-filter: blur(7px) saturate(1.08);
+      backdrop-filter: blur(7px) saturate(1.08);
     }
 
     .nav-label {
@@ -1104,20 +1107,77 @@
 
     .about-libraries {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: 1.12fr .88fr;
+      grid-template-rows: repeat(2, minmax(96px, auto));
       gap: 10px;
       margin-top: 12px;
     }
 
     .library-chip {
-      padding: 13px 14px;
+      position: relative;
+      overflow: hidden;
+      min-height: 96px;
+      padding: 15px;
       background: var(--glass-clear);
-      border: 1px solid var(--line);
-      border-radius: 15px;
+      border: 1px solid var(--glass-line);
+      border-radius: 20px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.78);
+      -webkit-backdrop-filter: blur(7px) saturate(1.04);
+      backdrop-filter: blur(8px) saturate(1.06);
+    }
+
+    .library-chip:first-child {
+      grid-row: span 2;
+      min-height: 202px;
+      background: linear-gradient(145deg, rgba(21,143,167,.09), rgba(255,255,255,.16));
+    }
+
+    .library-chip i {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      margin-bottom: 18px;
+      color: white;
+      background: var(--sea-600);
+      border-radius: 12px;
+      font-size: 18px;
     }
 
     .library-chip strong { display: block; color: var(--sea-900); font-size: 12px; }
-    .library-chip span { display: block; margin-top: 3px; color: var(--muted); font-size: 10px; }
+    .library-chip span { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; line-height: 1.45; }
+
+    .about-site {
+      color: var(--sea-600);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .about-site:active,
+    .dev-site-link:active {
+      opacity: .72;
+    }
+
+    .dev-site-icon {
+      display: block;
+      width: 56px;
+      height: 56px;
+      margin-bottom: 18px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 1px solid var(--glass-line);
+      box-shadow: 0 8px 22px rgba(6,56,70,.10);
+      background: var(--white);
+    }
+
+    .dev-site-link {
+      display: inline-block;
+      margin-top: 8px;
+      color: var(--sea-600);
+      font-size: 12px;
+      font-weight: 800;
+      text-decoration: none;
+    }
 
     .dev-page {
       position: fixed;
@@ -1355,8 +1415,11 @@
     <!-- ===================================================== HEADER ===================================================== -->
     <header class="app-header">
       <div class="header-inner">
-        <button class="brand" id="brandButton" type="button" aria-label="Ganga Watch. Tap once for About, three times for Developer page.">
+        <button class="brand" id="brandButton" type="button" aria-label="Ganga Watch. Tap three times for Developer page.">
           <span class="brand-name">Ganga Watch</span>
+        </button>
+        <button class="header-action" id="aboutButton" type="button" aria-label="About Ganga Watch" title="About">
+          <i class="ph ph-info" aria-hidden="true"></i>
         </button>
       </div>
     </header>
@@ -1493,11 +1556,34 @@
                 <div>
                   <strong>Libraries used</strong>
                   <div class="about-libraries">
-                    <div class="library-chip"><strong>Capacitor</strong><span>8.5.2 · Android bridge</span></div>
-                    <div class="library-chip"><strong>Leaflet</strong><span>1.9.4 · Interactive maps</span></div>
-                    <div class="library-chip"><strong>Phosphor Icons</strong><span>2.1.1 · UI icons</span></div>
-                    <div class="library-chip"><strong>Google Fonts</strong><span>Manrope + Playfair Display</span></div>
+                    <div class="library-chip">
+                      <i class="ph ph-device-mobile" aria-hidden="true"></i>
+                      <strong>Capacitor</strong>
+                      <span>8.5.2 · Android bridge</span>
+                    </div>
+                    <div class="library-chip">
+                      <i class="ph ph-map-trifold" aria-hidden="true"></i>
+                      <strong>Leaflet</strong>
+                      <span>1.9.4 · Interactive maps</span>
+                    </div>
+                    <div class="library-chip">
+                      <i class="ph ph-icons" aria-hidden="true"></i>
+                      <strong>Phosphor Icons</strong>
+                      <span>2.1.1 · UI icons</span>
+                    </div>
+                    <div class="library-chip">
+                      <i class="ph ph-text-aa" aria-hidden="true"></i>
+                      <strong>Google Fonts</strong>
+                      <span>Manrope + Playfair Display</span>
+                    </div>
                   </div>
+                </div>
+              </div>
+              <div class="about-row">
+                <i class="ph ph-globe-simple" aria-hidden="true"></i>
+                <div>
+                  <strong>Website</strong>
+                  <span><a class="about-site" href="https://ace-base.cc" target="_blank" rel="noopener">ace-base.cc</a></span>
                 </div>
               </div>
             </section>
@@ -1509,9 +1595,11 @@
 
     <section class="dev-page" id="devPage" aria-label="Developer page" aria-hidden="true">
       <div class="dev-card">
+        <img class="dev-site-icon" src="https://ace-base.cc/icon.png" alt="" width="56" height="56">
         <div class="dev-kicker">Easter egg · Developer</div>
         <h2>The Ace Base</h2>
         <p>Developed by The Ace Base.</p>
+        <a class="dev-site-link" href="https://ace-base.cc" target="_blank" rel="noopener">ace-base.cc</a>
         <div class="dev-actions">
           <a class="dev-button" href="https://github.com/aceyash-dev" target="_blank" rel="noopener">
             <i class="ph ph-github-logo" aria-hidden="true"></i>
@@ -1646,15 +1734,10 @@
       Number.isFinite(sample.lat) && Number.isFinite(sample.lng)
     );
 
-    // Keep the map local to the Ganga Watch study area. A 100 km radius
-    // prevents accidental world-scale tile loading and keeps mobile panning light.
-    const mapCenter = mappedSamples.length
-      ? [
-          mappedSamples.reduce((sum, sample) => sum + sample.lat, 0) / mappedSamples.length,
-          mappedSamples.reduce((sum, sample) => sum + sample.lng, 0) / mappedSamples.length
-        ]
-      : [25.3176, 82.9739];
-
+    // Hard-limit the interactive map to a 100 km radius around Varanasi.
+    // The rectangular maxBounds keeps tile requests local; the moveend clamp
+    // below prevents the map center from escaping the 100 km circle.
+    const mapCenter = [25.3176, 82.9739];
     const MAP_RADIUS_METERS = 100000;
     const latDelta = MAP_RADIUS_METERS / 111320;
     const lngDelta = MAP_RADIUS_METERS / (111320 * Math.cos(mapCenter[0] * Math.PI / 180));
@@ -1666,10 +1749,15 @@
     const map = L.map("map", {
       zoomControl: false,
       attributionControl: true,
+      preferCanvas: true,
+      inertia: false,
+      zoomAnimation: false,
+      fadeAnimation: false,
+      markerZoomAnimation: false,
       maxBounds: studyBounds,
       maxBoundsViscosity: 1,
-      minZoom: 10,
-      maxZoom: 15
+      minZoom: 11,
+      maxZoom: 14
     });
 
     L.control.zoom({ position: "bottomleft" }).addTo(map);
@@ -1677,11 +1765,13 @@
     const osmStreet = L.tileLayer(
       "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
       {
-        maxZoom: 15,
+        maxZoom: 14,
         bounds: studyBounds,
-        keepBuffer: 1,
+        keepBuffer: 0,
         updateWhenIdle: true,
         updateWhenZooming: false,
+        updateInterval: 150,
+        noWrap: true,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>'
       }
     );
@@ -1708,7 +1798,8 @@
           mosaicMethod: "esriMosaicAttribute",
           sortField: "acquisitiondate",
           ascending: false,
-          mosaicOperation: "MT_FIRST"
+          mosaicOperation: "MT_FIRST",
+          where: "cloudcover <= 20"
         });
 
         const renderingRule = JSON.stringify({
@@ -1743,11 +1834,12 @@
     const sentinel2Imagery = new sentinel2Latest({
       tileSize: 256,
       minZoom: 10,
-      maxZoom: 15,
+      maxZoom: 14,
       bounds: studyBounds,
-      keepBuffer: 1,
+      keepBuffer: 0,
       updateWhenIdle: true,
       updateWhenZooming: false,
+      updateInterval: 150,
       noWrap: true,
       attribution: '&copy; <a href="https://sentinel.esa.int/" target="_blank" rel="noopener">Copernicus Sentinel-2</a> data, processed by <a href="https://www.esri.com/" target="_blank" rel="noopener">Esri</a>'
     });
@@ -1836,9 +1928,30 @@
 
     fitAllMarkers();
 
+    let clampInProgress = false;
+    map.on("moveend", () => {
+      if (clampInProgress) return;
+      const center = map.getCenter();
+      const origin = L.latLng(mapCenter[0], mapCenter[1]);
+      const distance = origin.distanceTo(center);
+
+      if (distance <= MAP_RADIUS_METERS) return;
+
+      const ratio = MAP_RADIUS_METERS / distance;
+      const clamped = L.latLng(
+        origin.lat + (center.lat - origin.lat) * ratio,
+        origin.lng + (center.lng - origin.lng) * ratio
+      );
+
+      clampInProgress = true;
+      map.setView(clamped, map.getZoom(), { animate: false });
+      clampInProgress = false;
+    });
+
     const mapShell = document.querySelector(".map-shell");
     const mapFullscreen = $("#mapFullscreen");
     const brandButton = $("#brandButton");
+    const aboutButton = $("#aboutButton");
     const devPage = $("#devPage");
     const devClose = $("#devClose");
 
@@ -1898,9 +2011,13 @@
       }
 
       brandTapTimer = window.setTimeout(() => {
-        if (brandTapCount === 1) switchPage(2);
         brandTapCount = 0;
       }, 360);
+    });
+
+    aboutButton.addEventListener("click", () => {
+      haptic("tick");
+      switchPage(2);
     });
 
     /* ========================================================= DATA LIST ========================================================= */
