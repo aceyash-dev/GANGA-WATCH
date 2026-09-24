@@ -1503,6 +1503,7 @@
         <section class="page" id="aboutPage" aria-label="About Ganga Watch">
           <div class="page-inner">
             <section class="about-hero">
+        <div class="about-tagline" aria-label="Ganga, as Watched">Ganga,<br>as Watched</div>
               <div class="eyebrow">
                 <span class="eyebrow-dot"></span>
                 About Ganga Watch
@@ -1762,8 +1763,8 @@
     // NIMBO free satellite basemap.
     // This public, token-free layer is the June 2023 cloud-free RGB mosaic
     // documented by NIMBO for direct GIS/web-map use.
-    const nimboFree = L.tileLayer(
-      "https://prod-data.nimbo.earth/mapcache-free/tms/1.0.0/latest@kermap/{z}/{x}/{-y}.png",
+    const esriSatellite = L.tileLayer(
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
       {
         minZoom: 11,
         maxZoom: 19,
@@ -1773,7 +1774,7 @@
         updateWhenZooming: false,
         updateInterval: 150,
         noWrap: true,
-        attribution: '&copy; NIMBO by KERMAP &mdash; based on Copernicus Sentinel-2 data'
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community'
       }
     );
 
@@ -1786,7 +1787,7 @@
       {
         "Geographical": openFreeMap,
         "OSM Street": osmStreet,
-        "Satellite": nimboFree
+        "Satellite": esriSatellite
       },
       null,
       { position: "topright", collapsed: true }
