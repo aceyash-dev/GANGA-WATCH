@@ -175,6 +175,12 @@
       border: 0;
     }
 
+    .floating-nav.is-hidden {
+      transform: translate3d(-50%, calc(100% + max(17px, env(safe-area-inset-bottom)) + 20px), 0);
+      opacity: 0;
+      pointer-events: none;
+    }
+
     .floating-nav.is-animating {
       animation: liquid-glass-lift 420ms cubic-bezier(.22,1,.36,1);
     }
@@ -1352,9 +1358,6 @@
         grid-row: auto;
         min-height: 150px;
       }
-      .about-libraries {
-        grid-template-columns: 1fr;
-      }
       .nav-item {
         height: 48px;
         min-width: 48px;
@@ -1706,11 +1709,11 @@
       Number.isFinite(sample.lat) && Number.isFinite(sample.lng)
     );
 
-    // Hard-limit the interactive map to a 100 km radius around Varanasi.
+    // Hard-limit the interactive map to a 200 km radius around Varanasi.
     // The rectangular maxBounds keeps tile requests local; the moveend clamp
     // below prevents the map center from escaping the 100 km circle.
     const mapCenter = [25.3176, 82.9739];
-    const MAP_RADIUS_METERS = 100000;
+    const MAP_RADIUS_METERS = 200000;
     const latDelta = MAP_RADIUS_METERS / 111320;
     const lngDelta = MAP_RADIUS_METERS / (111320 * Math.cos(mapCenter[0] * Math.PI / 180));
     const studyBounds = L.latLngBounds(
@@ -2060,12 +2063,14 @@
     const pages = $("#pages");
     const navItems = [...document.querySelectorAll(".nav-item")];
     const appHeader = $(".app-header");
+    const floatingNav = $(".floating-nav");
     let currentPage = 0;
 
     function switchPage(pageIndex, animate = true) {
       pageIndex = Math.max(0, Math.min(2, pageIndex));
       currentPage = pageIndex;
       appHeader.classList.remove("is-hidden");
+      floatingNav.classList.remove("is-hidden");
 
       pages.style.transition = animate ? "transform 340ms cubic-bezier(.22, 1, .36, 1)" : "none";
       pages.style.transform = `translate3d(-${pageIndex * 33.333333}%, 0, 0)`;
@@ -2143,20 +2148,30 @@
 
     /* ========================================================= SCROLLING HEADER ========================================================= */
     const scrollPages = [...document.querySelectorAll(".page")];
-    const scrollPositions = new WeakMap();
+    const scrollTimers = new WeakMap();
+
+    function setChromeHidden(hidden) {
+      appHeader.classList.toggle("is-hidden", hidden);
+      floatingNav.classList.toggle("is-hidden", hidden);
+    }
 
     scrollPages.forEach(page => {
       page.addEventListener("scroll", () => {
         const current = page.scrollTop;
-        const previous = scrollPositions.get(page) ?? 0;
-        const delta = current - previous;
-        scrollPositions.set(page, current);
+        window.clearTimeout(scrollTimers.get(page));
 
-        if (current <= 8 || delta < -4) {
-          appHeader.classList.remove("is-hidden");
-        } else if (delta > 4 && current > 32) {
-          appHeader.classList.add("is-hidden");
+        if (current <= 8) {
+          setChromeHidden(false);
+          return;
         }
+
+        setChromeHidden(true);
+
+        const timer = window.setTimeout(() => {
+          setChromeHidden(false);
+        }, 180);
+
+        scrollTimers.set(page, timer);
       }, { passive: true });
     });
 
