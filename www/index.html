@@ -402,18 +402,38 @@
       right: 16px;
       bottom: 16px;
       display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+      flex-direction: column;
+      align-items: flex-end;
       gap: 7px;
       max-width: calc(100% - 32px);
       pointer-events: none;
     }
 
-    .legend-item {
+    .legend-group {
       display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
       align-items: center;
       gap: 6px;
-      padding: 8px 10px;
+    }
+
+    .legend-group-title {
+      width: 100%;
+      margin: 0 2px 1px;
+      color: rgba(16,42,51,.72);
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      text-align: right;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 30px;
+      padding: 7px 9px;
       color: var(--ink);
       background: var(--glass-clear);
       border: 1px solid rgba(255,255,255,.88);
@@ -421,7 +441,7 @@
       box-shadow: 0 6px 20px rgba(6,56,70,.10), inset 0 1px 0 rgba(255,255,255,.9);
       -webkit-backdrop-filter: blur(8px) saturate(1.05);
       backdrop-filter: blur(12px) saturate(1.08);
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 800;
     }
 
@@ -429,6 +449,21 @@
       width: 7px;
       height: 7px;
       border-radius: 50%;
+    }
+
+    .legend-icon {
+      width: 15px;
+      height: 15px;
+      display: grid;
+      place-items: center;
+      color: var(--sea-700);
+      font-size: 13px;
+      line-height: 1;
+    }
+
+    .legend-icon i {
+      font-size: inherit;
+      line-height: 1;
     }
 
     .legend-dot.drinkable {
@@ -441,6 +476,62 @@
 
     .legend-dot.very-dirty {
       background: var(--very-dirty);
+    }
+
+    .site-marker-wrap {
+      width: 34px !important;
+      height: 34px !important;
+      margin: 0 !important;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+
+    .site-marker {
+      width: 30px;
+      height: 30px;
+      margin: 2px;
+      display: grid;
+      place-items: center;
+      color: var(--sea-900);
+      background: rgba(255,255,255,.90);
+      border: 2.5px solid var(--marker-status);
+      border-radius: 50%;
+      box-shadow:
+        0 5px 14px rgba(6,56,70,.20),
+        inset 0 1px 0 rgba(255,255,255,.96);
+      font-size: 14px;
+      line-height: 1;
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .site-marker-wrap:hover .site-marker,
+    .site-marker-wrap:focus .site-marker {
+      transform: scale(1.12);
+      box-shadow:
+        0 7px 18px rgba(6,56,70,.24),
+        inset 0 1px 0 rgba(255,255,255,.98);
+    }
+
+    .site-marker.site-well {
+      color: var(--sea-700);
+    }
+
+    .site-marker.site-kund {
+      color: #176b72;
+    }
+
+    .site-marker.site-supply {
+      color: var(--sea-600);
+    }
+
+    .site-marker.site-other {
+      color: var(--muted);
+    }
+
+    .site-marker i {
+      font-size: 14px;
+      line-height: 1;
     }
 
     /* ===================================================== LEAFLET ===================================================== */
@@ -1434,15 +1525,33 @@
                 <i class="ph ph-arrows-out" aria-hidden="true"></i>
               </button>
               <div id="map"></div>
-              <div class="map-legend">
-                <div class="legend-item">
-                  <span class="legend-dot drinkable"></span> Drinkable
+              <div class="map-legend" aria-label="Map legend">
+                <div class="legend-group">
+                  <span class="legend-group-title">Water status</span>
+                  <div class="legend-item">
+                    <span class="legend-dot drinkable"></span> Drinkable
+                  </div>
+                  <div class="legend-item">
+                    <span class="legend-dot dirty"></span> Dirty
+                  </div>
+                  <div class="legend-item">
+                    <span class="legend-dot very-dirty"></span> Very Dirty
+                  </div>
                 </div>
-                <div class="legend-item">
-                  <span class="legend-dot dirty"></span> Dirty
-                </div>
-                <div class="legend-item">
-                  <span class="legend-dot very-dirty"></span> Very Dirty
+                <div class="legend-group">
+                  <span class="legend-group-title">Site type</span>
+                  <div class="legend-item">
+                    <span class="legend-icon"><i class="ph ph-cylinder" aria-hidden="true"></i></span> Well / Koop
+                  </div>
+                  <div class="legend-item">
+                    <span class="legend-icon"><i class="ph ph-waves" aria-hidden="true"></i></span> Kund
+                  </div>
+                  <div class="legend-item">
+                    <span class="legend-icon"><i class="ph ph-drop" aria-hidden="true"></i></span> Supply / Pump
+                  </div>
+                  <div class="legend-item">
+                    <span class="legend-icon"><i class="ph ph-map-pin" aria-hidden="true"></i></span> Other
+                  </div>
                 </div>
               </div>
             </section>
@@ -1760,9 +1869,7 @@
       }
     );
 
-    // NIMBO free satellite basemap.
-    // This public, token-free layer is the June 2023 cloud-free RGB mosaic
-    // documented by NIMBO for direct GIS/web-map use.
+    // Esri World Imagery satellite basemap.
     const esriSatellite = L.tileLayer(
       "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
       {
@@ -1800,6 +1907,46 @@
       if (status === "Drinkable") return "#087a61";
       if (status === "Dirty") return "#b86613";
       return "#bd4148";
+    }
+
+    function siteTypeForSample(sample) {
+      const location = String(sample.location || "").toLowerCase();
+
+      if (/\\bwell\\b|\\bkoop\\b/.test(location)) {
+        return { key: "well", icon: "ph-cylinder", label: "Well / Koop" };
+      }
+
+      if (/\\bkund\\b/.test(location)) {
+        return { key: "kund", icon: "ph-waves", label: "Kund" };
+      }
+
+      if (/water supply|cooler supply|\\bpump\\b/.test(location)) {
+        return { key: "supply", icon: "ph-drop", label: "Supply / Pump" };
+      }
+
+      return { key: "other", icon: "ph-map-pin", label: "Other" };
+    }
+
+    function createSiteMarkerIcon(sample) {
+      const site = siteTypeForSample(sample);
+      const status = statusClass(sample.remarks);
+      const statusColor = colorForStatus(sample.remarks);
+
+      return L.divIcon({
+        className: "site-marker-wrap",
+        iconSize: [34, 34],
+        iconAnchor: [17, 17],
+        popupAnchor: [0, -18],
+        html: `
+          <div
+            class="site-marker site-${site.key} status-${status}"
+            style="--marker-status:${statusColor}"
+            title="${escapeHTML(site.label)} · ${escapeHTML(sample.location)}"
+          >
+            <i class="ph ${site.icon}" aria-hidden="true"></i>
+          </div>
+        `
+      });
     }
 
     function createPopup(sample) {
@@ -1840,12 +1987,10 @@
     }
 
     mappedSamples.forEach((sample, index) => {
-      const marker = L.circleMarker([sample.lat, sample.lng], {
-        radius: 8,
-        color: "#ffffff",
-        weight: 2.5,
-        fillColor: colorForStatus(sample.remarks),
-        fillOpacity: 1
+      const marker = L.marker([sample.lat, sample.lng], {
+        icon: createSiteMarkerIcon(sample),
+        title: `${siteTypeForSample(sample).label}: ${sample.location}`,
+        alt: `${siteTypeForSample(sample).label}: ${sample.location}`
       });
 
       marker.bindPopup(createPopup(sample));
