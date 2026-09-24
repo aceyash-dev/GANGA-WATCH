@@ -1711,7 +1711,7 @@
 
     // Hard-limit the interactive map to a 200 km radius around Varanasi.
     // The rectangular maxBounds keeps tile requests local; the moveend clamp
-    // below prevents the map center from escaping the 100 km circle.
+    // below prevents the map center from escaping the 200 km circle.
     const mapCenter = [25.3176, 82.9739];
     const MAP_RADIUS_METERS = 200000;
     const latDelta = MAP_RADIUS_METERS / 111320;
