@@ -5,44 +5,66 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
 
-    <!-- Translucent glass tile -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:fillAlpha="0.34"
-        android:strokeColor="#FFFFFF"
-        android:strokeAlpha="0.78"
-        android:strokeWidth="2"
-        android:pathData="M27,19 L81,19 Q89,19 89,27 L89,81 Q89,89 81,89 L27,89 Q19,89 19,81 L19,27 Q19,19 27,19 Z" />
+    <!-- Original Ganga Watch water-ribbon foreground.
+         Kept transparent around the mark so the adaptive-icon background
+         remains the only background layer. -->
 
-    <!-- Glass highlight -->
+    <!-- Deep-blue outer ribbon / drop silhouette -->
     <path
-        android:fillColor="#FFFFFF"
-        android:fillAlpha="0.18"
-        android:pathData="M27,22 L81,22 Q86,22 86,27 L86,39 C70,32 49,29 22,39 L22,27 Q22,22 27,22 Z" />
+        android:fillColor="#075B78"
+        android:pathData="M54,18
+            C48,29 31,42 29,57
+            C27,72 37,86 53,89
+            C69,91 82,80 81,65
+            C80,51 65,38 54,18 Z" />
 
-    <!-- Ganga water mark -->
+    <!-- Cyan inner flow -->
     <path
-        android:fillColor="#056A82"
-        android:pathData="M54,30 C49,39 38,48 38,59 C38,70 45,78 54,78 C63,78 70,70 70,59 C70,48 59,39 54,30 Z" />
+        android:fillColor="#10B7D3"
+        android:pathData="M54,27
+            C49,37 37,48 36,59
+            C35,69 42,78 53,81
+            C63,84 72,77 73,67
+            C74,56 63,43 54,27 Z" />
 
-    <path
-        android:fillColor="#12A6C1"
-        android:fillAlpha="0.82"
-        android:pathData="M54,37 C50,44 43,50 43,59 C43,66 47,71 54,71 C61,71 65,66 65,59 C65,50 58,44 54,37 Z" />
-
+    <!-- White river channel / negative-space sweep -->
     <path
         android:fillColor="#FFFFFF"
         android:fillAlpha="0.96"
-        android:pathData="M47,49 C44,53 43,57 43,60 C43,65 46,68 49,70 C49,64 51,58 55,53 C57,50 59,46 60,42 C54,44 50,46 47,49 Z" />
+        android:pathData="M48,43
+            C43,49 40,55 40,61
+            C40,69 45,74 51,77
+            C49,70 51,62 56,55
+            C59,51 62,46 64,39
+            C58,40 53,41 48,43 Z" />
 
+    <!-- Lower flowing wave -->
     <path
-        android:fillColor="#DDF4F7"
-        android:fillAlpha="0.92"
-        android:pathData="M44,62 C49,59 54,60 59,63 C63,65 63,68 59,69 C54,69 50,66 46,68 C43,69 42,65 44,62 Z" />
+        android:fillColor="#DDF7FA"
+        android:fillAlpha="0.98"
+        android:pathData="M40,66
+            C47,62 54,64 60,68
+            C65,71 69,72 72,69
+            C70,76 65,80 58,80
+            C51,80 46,76 42,73
+            C39,71 38,68 40,66 Z" />
 
-    <!-- Specular glass streak -->
+    <!-- Cyan lower sweep -->
+    <path
+        android:fillColor="#0797B7"
+        android:pathData="M42,72
+            C49,72 54,77 61,77
+            C66,77 70,74 72,70
+            C70,79 63,84 55,84
+            C49,84 44,80 42,72 Z" />
+
+    <!-- Small clean highlight -->
     <path
         android:fillColor="#FFFFFF"
-        android:fillAlpha="0.62"
-        android:pathData="M30,31 L31,31 L31,55 L30,55 Z" />
+        android:fillAlpha="0.58"
+        android:pathData="M48,34
+            C45,39 42,43 39,47
+            C44,43 49,40 53,37
+            C54,35 54,32 54,29
+            C52,31 50,33 48,34 Z" />
 </vector>
