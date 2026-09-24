@@ -14,7 +14,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
   <!-- ===================================================== PHOSPHOR ICONS ===================================================== -->
-  <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
   <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
 
   <!-- ===================================================== LEAFLET ===================================================== -->
@@ -150,7 +149,7 @@
         transparent 62%
       );
       transform: translate3d(-42%,0,0) rotate(5deg);
-      animation: liquid-glass-sheen 7s cubic-bezier(.4,0,.2,1) infinite;
+      animation: none;
     }
 
     .brand,
@@ -241,7 +240,7 @@
       border: 1px solid var(--glass-line);
       border-radius: 18px;
       box-shadow: 0 10px 30px rgba(6,56,70,.09), inset 0 1px 0 rgba(255,255,255,.78);
-      -webkit-backdrop-filter: blur(16px) saturate(1.12);
+      -webkit-backdrop-filter: blur(10px) saturate(1.08);
       backdrop-filter: blur(16px) saturate(1.12);
     }
 
@@ -410,7 +409,7 @@
       border: 1px solid rgba(255,255,255,.88);
       border-radius: 999px;
       box-shadow: 0 6px 20px rgba(6,56,70,.10), inset 0 1px 0 rgba(255,255,255,.9);
-      -webkit-backdrop-filter: blur(12px) saturate(1.08);
+      -webkit-backdrop-filter: blur(8px) saturate(1.05);
       backdrop-filter: blur(12px) saturate(1.08);
       font-size: 10px;
       font-weight: 800;
@@ -456,7 +455,7 @@
       font-family: "Manrope", sans-serif;
       font-size: 11px;
       font-weight: 700;
-      -webkit-backdrop-filter: blur(14px) saturate(1.1);
+      -webkit-backdrop-filter: blur(9px) saturate(1.06);
       backdrop-filter: blur(14px) saturate(1.1);
     }
 
@@ -684,7 +683,7 @@
       border: 1px solid var(--glass-line);
       border-radius: 20px;
       box-shadow: 0 9px 26px rgba(6,56,70,.08), inset 0 1px 0 rgba(255,255,255,.9);
-      -webkit-backdrop-filter: blur(14px) saturate(1.08);
+      -webkit-backdrop-filter: blur(9px) saturate(1.06);
       backdrop-filter: blur(14px) saturate(1.08);
     }
 
@@ -850,7 +849,7 @@
       border: 1px solid rgba(255,255,255,.88);
       border-radius: 22px;
       box-shadow: 0 12px 34px rgba(6,56,70,.11), inset 0 1px 0 rgba(255,255,255,.78);
-      -webkit-backdrop-filter: blur(18px) saturate(1.14);
+      -webkit-backdrop-filter: blur(10px) saturate(1.08);
       backdrop-filter: blur(18px) saturate(1.14);
     }
 
@@ -1023,7 +1022,7 @@
       background: var(--glass-clear);
       border: 1px solid var(--glass-line);
       box-shadow: 0 10px 30px rgba(6,56,70,.10), inset 0 1px 0 rgba(255,255,255,.90);
-      -webkit-backdrop-filter: blur(15px) saturate(1.12);
+      -webkit-backdrop-filter: blur(10px) saturate(1.08);
       backdrop-filter: blur(15px) saturate(1.12);
       transition: transform 360ms cubic-bezier(.22,1,.36,1), box-shadow 360ms ease;
     }
@@ -1744,7 +1743,7 @@
 
     function fitAllMarkers() {
       if (!bounds || !bounds.isValid()) return;
-      map.fitBounds(bounds, { padding: [45, 45], maxZoom: 14, animate: true });
+      map.fitBounds(bounds, { padding: [45, 45], maxZoom: 14, animate: false });
     }
 
     fitAllMarkers();
