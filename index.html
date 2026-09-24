@@ -1622,6 +1622,7 @@
     setSummaryValue("#averageTds", availableSamples.map(sample => sample.tds), value => `${value.toFixed(1)} mg/L`);
     setSummaryValue("#averageEc", availableSamples.map(sample => sample.ec), value => `${value.toFixed(0)} µS/cm`);
     setSummaryValue("#averageTemp", availableSamples.map(sample => sample.temp), value => `${value.toFixed(1)} °C`);
+    $(".summary").hidden = availableSamples.length === 0;
 
     /* ========================================================= MAP ========================================================= */
     const map = L.map("map", { zoomControl: false, attributionControl: true });
@@ -1777,6 +1778,10 @@
       if (event.target === devPage) closeDevPage();
     });
 
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && devPage.classList.contains("open")) closeDevPage();
+    });
+
     let brandTapCount = 0;
     let brandTapTimer = null;
     brandButton.addEventListener("click", () => {
@@ -1805,7 +1810,7 @@
       const query = searchInput.value.trim().toLowerCase();
       const filter = statusFilter.value;
 
-      const filtered = samples.filter(sample => {
+      const filtered = availableSamples.filter(sample => {
         const searchable = [
           sample.id,
           sample.location,
