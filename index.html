@@ -1107,41 +1107,24 @@
 
     .about-libraries {
       display: grid;
-      grid-template-columns: 1.12fr .88fr;
-      grid-template-rows: repeat(2, minmax(96px, auto));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: repeat(2, minmax(94px, auto));
       gap: 10px;
       margin-top: 12px;
     }
 
     .library-chip {
-      position: relative;
-      overflow: hidden;
-      min-height: 96px;
-      padding: 15px;
+      min-height: 94px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
       background: var(--glass-clear);
       border: 1px solid var(--glass-line);
       border-radius: 20px;
       box-shadow: inset 0 1px 0 rgba(255,255,255,.78);
       -webkit-backdrop-filter: blur(7px) saturate(1.04);
       backdrop-filter: blur(8px) saturate(1.06);
-    }
-
-    .library-chip:first-child {
-      grid-row: span 2;
-      min-height: 202px;
-      background: linear-gradient(145deg, rgba(21,143,167,.09), rgba(255,255,255,.16));
-    }
-
-    .library-chip i {
-      display: grid;
-      width: 34px;
-      height: 34px;
-      place-items: center;
-      margin-bottom: 18px;
-      color: white;
-      background: var(--sea-600);
-      border-radius: 12px;
-      font-size: 18px;
     }
 
     .library-chip strong { display: block; color: var(--sea-900); font-size: 12px; }
@@ -1557,33 +1540,22 @@
                   <strong>Libraries used</strong>
                   <div class="about-libraries">
                     <div class="library-chip">
-                      <i class="ph ph-device-mobile" aria-hidden="true"></i>
                       <strong>Capacitor</strong>
                       <span>8.5.2 · Android bridge</span>
                     </div>
                     <div class="library-chip">
-                      <i class="ph ph-map-trifold" aria-hidden="true"></i>
                       <strong>Leaflet</strong>
                       <span>1.9.4 · Interactive maps</span>
                     </div>
                     <div class="library-chip">
-                      <i class="ph ph-icons" aria-hidden="true"></i>
                       <strong>Phosphor Icons</strong>
                       <span>2.1.1 · UI icons</span>
                     </div>
                     <div class="library-chip">
-                      <i class="ph ph-text-aa" aria-hidden="true"></i>
                       <strong>Google Fonts</strong>
                       <span>Manrope + Playfair Display</span>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="about-row">
-                <i class="ph ph-globe-simple" aria-hidden="true"></i>
-                <div>
-                  <strong>Website</strong>
-                  <span><a class="about-site" href="https://ace-base.cc" target="_blank" rel="noopener">ace-base.cc</a></span>
                 </div>
               </div>
             </section>
@@ -1776,80 +1748,31 @@
       }
     );
 
-    // Sentinel-2 is updated daily and provides 10 m imagery. Unlike the
-    // static World Imagery basemap, this requests the newest available
-    // scene for each visible tile.
-    const sentinel2Latest = L.GridLayer.extend({
-      createTile(coords, done) {
-        const tile = document.createElement("img");
-        tile.alt = "";
-        tile.width = 256;
-        tile.height = 256;
-        tile.loading = "lazy";
-        tile.decoding = "async";
-        tile.setAttribute("aria-hidden", "true");
-
-        const nw = map.unproject([coords.x * 256, coords.y * 256], coords.z);
-        const se = map.unproject([(coords.x + 1) * 256, (coords.y + 1) * 256], coords.z);
-        const nw3857 = map.options.crs.project(nw);
-        const se3857 = map.options.crs.project(se);
-
-        const mosaicRule = JSON.stringify({
-          mosaicMethod: "esriMosaicAttribute",
-          sortField: "acquisitiondate",
-          ascending: false,
-          mosaicOperation: "MT_FIRST",
-          where: "cloudcover <= 20"
-        });
-
-        const renderingRule = JSON.stringify({
-          rasterFunction: "Natural Color with DRA"
-        });
-
-        const params = new URLSearchParams({
-          f: "image",
-          bbox: [
-            nw3857.x,
-            se3857.y,
-            se3857.x,
-            nw3857.y
-          ].join(","),
-          bboxSR: "3857",
-          imageSR: "3857",
-          size: "256,256",
-          format: "jpg",
-          interpolation: "RSP_BilinearInterpolation",
-          mosaicRule,
-          renderingRule
-        });
-
-        tile.src = "https://sentinel.arcgis.com/arcgis/rest/services/Sentinel2/ImageServer/exportImage?" + params.toString();
-        tile.addEventListener("load", () => done(null, tile), { once: true });
-        tile.addEventListener("error", event => done(event, tile), { once: true });
-
-        return tile;
+    // ArcGIS World Imagery is the maintained global imagery service.
+    // It is refreshed continuously from multiple providers and does not require
+    // an API key on this public tile endpoint. The service does not expose
+    // a cloud-cover control in the app UI.
+    const imagerySatellite = L.tileLayer(
+      "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+      {
+        minZoom: 11,
+        maxZoom: 14,
+        bounds: studyBounds,
+        keepBuffer: 0,
+        updateWhenIdle: true,
+        updateWhenZooming: false,
+        updateInterval: 150,
+        noWrap: true,
+        attribution: '&copy; <a href="https://www.esri.com/" target="_blank" rel="noopener">Esri</a>, Vantor, Earthstar Geographics, and the GIS User Community'
       }
-    });
-
-    const sentinel2Imagery = new sentinel2Latest({
-      tileSize: 256,
-      minZoom: 10,
-      maxZoom: 14,
-      bounds: studyBounds,
-      keepBuffer: 0,
-      updateWhenIdle: true,
-      updateWhenZooming: false,
-      updateInterval: 150,
-      noWrap: true,
-      attribution: '&copy; <a href="https://sentinel.esa.int/" target="_blank" rel="noopener">Copernicus Sentinel-2</a> data, processed by <a href="https://www.esri.com/" target="_blank" rel="noopener">Esri</a>'
-    });
+    );
 
     osmStreet.addTo(map);
 
     L.control.layers(
       {
-        "OpenStreetMap Streets": osmStreet,
-        "Latest Sentinel-2": sentinel2Imagery
+        "Street": osmStreet,
+        "Satellite": imagerySatellite
       },
       null,
       { position: "topright", collapsed: true }
