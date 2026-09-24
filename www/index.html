@@ -165,6 +165,11 @@
       transform: scale(.965);
     }
 
+    .brand {
+      cursor: pointer;
+      border: 0;
+    }
+
     .floating-nav.is-animating {
       animation: liquid-glass-lift 420ms cubic-bezier(.22,1,.36,1);
     }
@@ -226,8 +231,8 @@
       pointer-events: auto;
       display: flex;
       align-items: center;
-      gap: 11px;
-      padding: 9px 13px 9px 9px;
+      padding: 0 18px;
+      min-height: 54px;
       background: rgba(255,255,255,.68);
       border: 1px solid rgba(255,255,255,.88);
       border-radius: 18px;
@@ -236,33 +241,15 @@
       backdrop-filter: blur(16px) saturate(1.12);
     }
 
-    .brand-mark {
-      width: 36px;
-      height: 36px;
-      display: grid;
-      place-items: center;
-      color: white;
-      background: var(--sea-600);
-      border-radius: 12px;
-    }
-
     .brand-name {
       color: var(--sea-900);
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 800;
       letter-spacing: -.025em;
     }
 
-    .brand-subtitle {
-      margin-top: 1px;
-      color: var(--muted);
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .045em;
-      text-transform: uppercase;
-    }
-
     .header-action {
+      display: none;
       pointer-events: auto;
       width: 43px;
       height: 43px;
@@ -670,6 +657,55 @@
       contain: layout paint;
     }
 
+
+    .data-empty-bento {
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      grid-template-rows: repeat(2, minmax(120px, 1fr));
+      gap: 10px;
+      min-height: 290px;
+    }
+
+    .bento-tile {
+      position: relative;
+      overflow: hidden;
+      min-height: 120px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: rgba(255,255,255,.62);
+      border: 1px solid rgba(255,255,255,.86);
+      border-radius: 20px;
+      box-shadow: 0 9px 26px rgba(6,56,70,.08), inset 0 1px 0 rgba(255,255,255,.9);
+      -webkit-backdrop-filter: blur(14px) saturate(1.08);
+      backdrop-filter: blur(14px) saturate(1.08);
+    }
+
+    .bento-tile.large {
+      grid-row: span 2;
+      min-height: 250px;
+      background: linear-gradient(145deg, rgba(21,143,167,.13), rgba(255,255,255,.68));
+    }
+
+    .bento-tile i { color: var(--sea-600); font-size: 24px; }
+
+    .bento-tile strong {
+      display: block;
+      margin-top: 14px;
+      color: var(--sea-900);
+      font-size: 17px;
+      line-height: 1.2;
+    }
+
+    .bento-tile span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
     .sample-card {
       position: relative;
       overflow: hidden;
@@ -1058,6 +1094,60 @@
       line-height: 1.5;
     }
 
+
+    .about-libraries {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .library-chip {
+      padding: 13px 14px;
+      background: rgba(255,255,255,.58);
+      border: 1px solid var(--line);
+      border-radius: 15px;
+    }
+
+    .library-chip strong { display: block; color: var(--sea-900); font-size: 12px; }
+    .library-chip span { display: block; margin-top: 3px; color: var(--muted); font-size: 10px; }
+
+    .dev-page {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: rgba(247,252,254,.94);
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 220ms ease, visibility 220ms ease;
+    }
+
+    .dev-page.open { opacity: 1; visibility: visible; pointer-events: auto; }
+
+    .dev-card {
+      width: min(520px, 100%);
+      padding: 28px;
+      background: rgba(255,255,255,.76);
+      border: 1px solid rgba(255,255,255,.9);
+      border-radius: 28px;
+      box-shadow: 0 20px 60px rgba(6,56,70,.16), inset 0 1px 0 rgba(255,255,255,.94);
+      -webkit-backdrop-filter: blur(20px) saturate(1.12);
+      backdrop-filter: blur(20px) saturate(1.12);
+    }
+
+    .dev-kicker { color: var(--sea-600); font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .dev-card h2 { margin: 8px 0; color: var(--sea-900); font-family: "Playfair Display", Georgia, serif; font-size: clamp(42px, 12vw, 64px); line-height: .98; letter-spacing: -.04em; }
+    .dev-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .dev-actions { display: flex; gap: 9px; margin-top: 22px; }
+    .dev-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 15px; color: white; background: var(--sea-600); border-radius: 13px; font-size: 12px; font-weight: 800; text-decoration: none; }
+    .dev-close { color: var(--sea-900); background: var(--ice-1); }
+
     /* ===================================================== FULLSCREEN MAP ===================================================== */
     .map-shell.map-fullscreen {
       position: fixed;
@@ -1203,6 +1293,18 @@
       .floating-nav {
         bottom: max(10px, env(safe-area-inset-bottom));
       }
+      .data-empty-bento {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1.15fr .85fr;
+      }
+      .bento-tile.large {
+        grid-column: span 2;
+        grid-row: auto;
+        min-height: 150px;
+      }
+      .about-libraries {
+        grid-template-columns: 1fr;
+      }
       .nav-item {
         height: 48px;
         min-width: 48px;
@@ -1246,17 +1348,8 @@
     <!-- ===================================================== HEADER ===================================================== -->
     <header class="app-header">
       <div class="header-inner">
-        <div class="brand">
-          <div class="brand-mark">
-            <i class="ph ph-waves" aria-hidden="true"></i>
-          </div>
-          <div>
-            <div class="brand-name">Ganga Watch</div>
-            <div class="brand-subtitle">Water quality · Varanasi</div>
-          </div>
-        </div>
-        <button class="header-action" id="aboutButton" aria-label="About Ganga Watch" title="About Ganga Watch">
-          <i class="ph ph-info" aria-hidden="true"></i>
+        <button class="brand" id="brandButton" type="button" aria-label="Ganga Watch. Tap once for About, three times for Developer page.">
+          <span class="brand-name">Ganga Watch</span>
         </button>
       </div>
     </header>
@@ -1272,7 +1365,7 @@
                 <span class="eyebrow-dot"></span>
                 Varanasi water observations
               </div>
-              <h1>The Ganga,<br>Mapped</h1>
+              <h1>Ganga,<br>as Watched</h1>
               <p class="hero-text">
                 Explore the recorded water-quality observations across wells and kunds in Varanasi. Tap a location for its measurements.
               </p>
@@ -1309,7 +1402,7 @@
                 </div>
                 <h2>Water data.</h2>
               </div>
-              <div class="sample-count" id="resultCount">36 samples</div>
+              <div class="sample-count" id="resultCount">0 samples</div>
             </section>
 
             <section class="toolbar">
@@ -1388,11 +1481,39 @@
                   <span>Browse measurements, compare locations, and inspect mapped samples.</span>
                 </div>
               </div>
+              <div class="about-row">
+                <i class="ph ph-code" aria-hidden="true"></i>
+                <div>
+                  <strong>Libraries used</strong>
+                  <div class="about-libraries">
+                    <div class="library-chip"><strong>Capacitor</strong><span>8.5.2 · Android bridge</span></div>
+                    <div class="library-chip"><strong>Leaflet</strong><span>1.9.4 · Interactive maps</span></div>
+                    <div class="library-chip"><strong>Phosphor Icons</strong><span>2.1.1 · UI icons</span></div>
+                    <div class="library-chip"><strong>Google Fonts</strong><span>Manrope + Playfair Display</span></div>
+                  </div>
+                </div>
+              </div>
             </section>
           </div>
         </section>
       </div>
     </main>
+
+
+    <section class="dev-page" id="devPage" aria-label="Developer page" aria-hidden="true">
+      <div class="dev-card">
+        <div class="dev-kicker">Easter egg · Developer</div>
+        <h2>The Ace Base</h2>
+        <p>Developed by The Ace Base.</p>
+        <div class="dev-actions">
+          <a class="dev-button" href="https://github.com/aceyash-dev" target="_blank" rel="noopener">
+            <i class="ph ph-github-logo" aria-hidden="true"></i>
+            GitHub
+          </a>
+          <button class="dev-button dev-close" id="devClose" type="button">Close</button>
+        </div>
+      </div>
+    </section>
 
     <!-- ===================================================== FLOATING NAV ===================================================== -->
     <nav class="floating-nav" aria-label="Primary navigation">
@@ -1486,10 +1607,21 @@
     }
 
     /* ========================================================= SUMMARY ========================================================= */
-    $("#averagePh").textContent = average(samples.map(sample => sample.ph)).toFixed(2);
-    $("#averageTds").textContent = `${average(samples.map(sample => sample.tds)).toFixed(1)} mg/L`;
-    $("#averageEc").textContent = `${average(samples.map(sample => sample.ec)).toFixed(0)} µS/cm`;
-    $("#averageTemp").textContent = `${average(samples.map(sample => sample.temp)).toFixed(1)} °C`;
+    function hasSampleData(sample) {
+      return [sample.ph, sample.tds, sample.ec, sample.temp, sample.orp].some(value => Number.isFinite(value));
+    }
+
+    const availableSamples = samples.filter(hasSampleData);
+
+    function setSummaryValue(id, values, formatter) {
+      const numeric = values.filter(Number.isFinite);
+      $(id).textContent = numeric.length ? formatter(average(numeric)) : "—";
+    }
+
+    setSummaryValue("#averagePh", availableSamples.map(sample => sample.ph), value => value.toFixed(2));
+    setSummaryValue("#averageTds", availableSamples.map(sample => sample.tds), value => `${value.toFixed(1)} mg/L`);
+    setSummaryValue("#averageEc", availableSamples.map(sample => sample.ec), value => `${value.toFixed(0)} µS/cm`);
+    setSummaryValue("#averageTemp", availableSamples.map(sample => sample.temp), value => `${value.toFixed(1)} °C`);
 
     /* ========================================================= MAP ========================================================= */
     const map = L.map("map", { zoomControl: false, attributionControl: true });
@@ -1604,7 +1736,9 @@
 
     const mapShell = document.querySelector(".map-shell");
     const mapFullscreen = $("#mapFullscreen");
-    const aboutButton = $("#aboutButton");
+    const brandButton = $("#brandButton");
+    const devPage = $("#devPage");
+    const devClose = $("#devClose");
 
     function setMapFullscreen(enabled) {
       mapShell.classList.toggle("map-fullscreen", enabled);
@@ -1628,7 +1762,38 @@
       if (!mapShell.classList.contains("map-fullscreen")) setMapFullscreen(true);
     });
 
-    aboutButton.addEventListener("click", () => switchPage(2));
+    function openDevPage() {
+      devPage.classList.add("open");
+      devPage.setAttribute("aria-hidden", "false");
+    }
+
+    function closeDevPage() {
+      devPage.classList.remove("open");
+      devPage.setAttribute("aria-hidden", "true");
+    }
+
+    devClose.addEventListener("click", closeDevPage);
+    devPage.addEventListener("click", event => {
+      if (event.target === devPage) closeDevPage();
+    });
+
+    let brandTapCount = 0;
+    let brandTapTimer = null;
+    brandButton.addEventListener("click", () => {
+      brandTapCount += 1;
+      window.clearTimeout(brandTapTimer);
+
+      if (brandTapCount === 3) {
+        brandTapCount = 0;
+        openDevPage();
+        return;
+      }
+
+      brandTapTimer = window.setTimeout(() => {
+        if (brandTapCount === 1) switchPage(2);
+        brandTapCount = 0;
+      }, 360);
+    });
 
     /* ========================================================= DATA LIST ========================================================= */
     const dataList = $("#dataList");
@@ -1658,8 +1823,22 @@
 
       if (!filtered.length) {
         dataList.innerHTML = `
-          <div class="empty">
-            No water samples match this search.
+          <div class="data-empty-bento">
+            <article class="bento-tile large">
+              <i class="ph ph-drop" aria-hidden="true"></i>
+              <div>
+                <strong>${query || filter !== "all" ? "No matching records" : "No water data yet"}</strong>
+                <span>${query || filter !== "all" ? "Try a different search or status filter." : "Field measurements will appear here when records are available."}</span>
+              </div>
+            </article>
+            <article class="bento-tile">
+              <i class="ph ph-map-pin" aria-hidden="true"></i>
+              <div><strong>Mapped</strong><span>Location data stays ready for the map.</span></div>
+            </article>
+            <article class="bento-tile">
+              <i class="ph ph-chart-line-up" aria-hidden="true"></i>
+              <div><strong>Observed</strong><span>pH, TDS, EC and temperature appear when measured.</span></div>
+            </article>
           </div>
         `;
         return;
