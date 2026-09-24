@@ -48,9 +48,9 @@
       --very-dirty: #bd4148;
       --very-dirty-bg: #fde8e9;
       --nav-shadow: 0 9px 30px rgba(6, 56, 70, .12);
-      --glass-clear: rgba(255,255,255,.13);
-      --glass-clear-strong: rgba(255,255,255,.22);
-      --glass-line: rgba(255,255,255,.72);
+      --glass-clear: rgba(255,255,255,.10);
+      --glass-clear-strong: rgba(255,255,255,.17);
+      --glass-line: rgba(255,255,255,.58);
       --radius-xl: 32px;
       --radius-lg: 26px;
       --radius-md: 20px;
@@ -394,6 +394,15 @@
     #map {
       width: 100%;
       height: 100%;
+    }
+
+    .gl-3d-marker {
+      width: 16px;
+      height: 16px;
+      border: 2.5px solid #fff;
+      border-radius: 50%;
+      box-shadow: 0 2px 9px rgba(6,56,70,.24);
+      cursor: pointer;
     }
 
     .map-legend {
@@ -1224,7 +1233,8 @@
       height: 100%;
     }
 
-    .map-fullscreen-toggle {
+    .map-fullscreen-toggle,
+    .map-3d-toggle {
       position: absolute;
       z-index: 501;
       top: 16px;
@@ -1241,6 +1251,28 @@
       -webkit-backdrop-filter: blur(14px) saturate(1.1);
       backdrop-filter: blur(14px) saturate(1.1);
       transition: transform 180ms cubic-bezier(.25,.9,.25,1), background 180ms ease, box-shadow 180ms ease;
+    }
+
+    .map-3d-toggle {
+      top: 66px;
+      right: 16px;
+      color: var(--sea-700);
+      background: rgba(255,255,255,.58);
+      border: 1px solid rgba(255,255,255,.76);
+      border-radius: 13px;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 7px 24px rgba(6,56,70,.09), inset 0 1px 0 rgba(255,255,255,.82);
+      -webkit-backdrop-filter: blur(12px) saturate(1.06);
+      backdrop-filter: blur(12px) saturate(1.06);
+    }
+
+    .map-3d-toggle.is-active {
+      color: var(--white);
+      background: rgba(8,119,143,.76);
+      border-color: rgba(255,255,255,.68);
     }
 
     .leaflet-top.leaflet-right {
@@ -1306,6 +1338,10 @@
       }
       .map-fullscreen-toggle {
         top: 10px;
+        right: 10px;
+      }
+      .map-3d-toggle {
+        top: 58px;
         right: 10px;
       }
 
@@ -1432,6 +1468,9 @@
             <section class="map-shell">
               <button class="map-fullscreen-toggle" id="mapFullscreen" aria-label="Fullscreen map" title="Fullscreen map">
                 <i class="ph ph-arrows-out" aria-hidden="true"></i>
+              </button>
+              <button class="map-3d-toggle" id="map3dToggle" type="button" aria-label="Enable 3D map" title="3D map">
+                <i class="ph ph-cube" aria-hidden="true"></i>
               </button>
               <div id="map"></div>
               <div class="map-legend">
@@ -1778,6 +1817,93 @@
     );
 
     openFreeMap.addTo(map);
+    const openFreeMapGL = openFreeMap.getMaplibreMap();
+    const map3dToggle = $("#map3dToggle");
+    let map3dEnabled = false;
+    let map3dReady = false;
+    const gl3dMarkers = [];
+
+    function setLeafletMarkersVisible(visible) {
+      markers.forEach(({ marker }) => marker.setOpacity(visible ? 1 : 0));
+    }
+
+    function add3dMarkers() {
+      if (!map3dReady || gl3dMarkers.length) return;
+      mappedSamples.forEach(sample => {
+        const el = document.createElement("div");
+        el.className = "gl-3d-marker";
+        el.style.background = colorForStatus(sample.remarks);
+        const popup = new maplibregl.Popup({ offset: 12, closeButton: true })
+          .setHTML(createPopup(sample));
+        const marker = new maplibregl.Marker({ element: el, anchor: "center" })
+          .setLngLat([sample.lng, sample.lat])
+          .setPopup(popup)
+          .addTo(openFreeMapGL);
+        gl3dMarkers.push(marker);
+      });
+    }
+
+    function remove3dMarkers() {
+      gl3dMarkers.forEach(marker => marker.remove());
+      gl3dMarkers.length = 0;
+    }
+
+    function enable3dBuildings() {
+      if (!openFreeMapGL.isStyleLoaded()) return;
+      if (!openFreeMapGL.getLayer("ganga-watch-3d-buildings")) {
+        const buildingLayer = openFreeMapGL.getStyle().layers.find(
+          layer => layer["source-layer"] === "building" && layer.source
+        );
+        if (buildingLayer) {
+          openFreeMapGL.addLayer({
+            id: "ganga-watch-3d-buildings",
+            type: "fill-extrusion",
+            source: buildingLayer.source,
+            "source-layer": "building",
+            minzoom: 12,
+            filter: ["all", ["!has", "hide_3d"]],
+            paint: {
+              "fill-extrusion-color": "#c8d8dd",
+              "fill-extrusion-height": ["coalesce", ["get", "render_height"], ["get", "height"], 10],
+              "fill-extrusion-base": ["coalesce", ["get", "render_min_height"], ["get", "min_height"], 0],
+              "fill-extrusion-opacity": 0.78
+            }
+          }, buildingLayer.id);
+        }
+      }
+      map3dReady = true;
+    }
+
+    function set3dMode(enabled) {
+      if (!map3dReady) return;
+      map3dEnabled = enabled;
+      map3dToggle.classList.toggle("is-active", enabled);
+      map3dToggle.setAttribute("aria-label", enabled ? "Disable 3D map" : "Enable 3D map");
+      map3dToggle.innerHTML = enabled
+        ? '<i class="ph ph-cube-fill" aria-hidden="true"></i>'
+        : '<i class="ph ph-cube" aria-hidden="true"></i>';
+
+      if (enabled) {
+        setLeafletMarkersVisible(false);
+        add3dMarkers();
+        openFreeMapGL.easeTo({ pitch: 50, bearing: -18, duration: 520 });
+      } else {
+        remove3dMarkers();
+        setLeafletMarkersVisible(true);
+        openFreeMapGL.easeTo({ pitch: 0, bearing: 0, duration: 420 });
+      }
+    }
+
+    openFreeMapGL.once("load", () => {
+      enable3dBuildings();
+    });
+
+    map3dToggle.addEventListener("click", event => {
+      event.stopPropagation();
+      haptic("click");
+      set3dMode(!map3dEnabled);
+    });
+
     map.attributionControl.addAttribution(
       'OpenFreeMap &copy; OpenMapTiles Data from <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>'
     );
