@@ -10,6 +10,7 @@
   <!-- ===================================================== FONTS ===================================================== -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
   <!-- ===================================================== PHOSPHOR ICONS ===================================================== -->
@@ -43,7 +44,10 @@
       --dirty-bg: #fff0dc;
       --very-dirty: #bd4148;
       --very-dirty-bg: #fde8e9;
-      --nav-shadow: 0 9px 30px rgba(6, 56, 70, .16);
+      --nav-shadow: 0 9px 30px rgba(6, 56, 70, .12);
+      --glass-clear: rgba(255,255,255,.13);
+      --glass-clear-strong: rgba(255,255,255,.22);
+      --glass-line: rgba(255,255,255,.72);
       --radius-xl: 28px;
       --radius-lg: 22px;
       --radius-md: 16px;
@@ -233,10 +237,10 @@
       align-items: center;
       padding: 0 18px;
       min-height: 54px;
-      background: rgba(255,255,255,.68);
-      border: 1px solid rgba(255,255,255,.88);
+      background: var(--glass-clear);
+      border: 1px solid var(--glass-line);
       border-radius: 18px;
-      box-shadow: 0 7px 24px rgba(6,56,70,.10), inset 0 1px 0 rgba(255,255,255,.92);
+      box-shadow: 0 10px 30px rgba(6,56,70,.09), inset 0 1px 0 rgba(255,255,255,.78);
       -webkit-backdrop-filter: blur(16px) saturate(1.12);
       backdrop-filter: blur(16px) saturate(1.12);
     }
@@ -402,7 +406,7 @@
       gap: 6px;
       padding: 8px 10px;
       color: var(--ink);
-      background: rgba(255,255,255,.70);
+      background: var(--glass-clear);
       border: 1px solid rgba(255,255,255,.88);
       border-radius: 999px;
       box-shadow: 0 6px 20px rgba(6,56,70,.10), inset 0 1px 0 rgba(255,255,255,.9);
@@ -433,7 +437,9 @@
     /* ===================================================== LEAFLET ===================================================== */
     .leaflet-control-zoom a {
       color: var(--sea-700) !important;
-      background: var(--white) !important;
+      background: var(--glass-clear) !important;
+      -webkit-backdrop-filter: blur(12px) saturate(1.08);
+      backdrop-filter: blur(12px) saturate(1.08);
       border-color: var(--line) !important;
     }
 
@@ -674,8 +680,8 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      background: rgba(255,255,255,.62);
-      border: 1px solid rgba(255,255,255,.86);
+      background: var(--glass-clear);
+      border: 1px solid var(--glass-line);
       border-radius: 20px;
       box-shadow: 0 9px 26px rgba(6,56,70,.08), inset 0 1px 0 rgba(255,255,255,.9);
       -webkit-backdrop-filter: blur(14px) saturate(1.08);
@@ -685,7 +691,7 @@
     .bento-tile.large {
       grid-row: span 2;
       min-height: 250px;
-      background: linear-gradient(145deg, rgba(21,143,167,.13), rgba(255,255,255,.68));
+      background: linear-gradient(145deg, rgba(21,143,167,.08), rgba(255,255,255,.16));
     }
 
     .bento-tile i { color: var(--sea-600); font-size: 24px; }
@@ -843,7 +849,7 @@
       background: rgba(255,255,255,.68);
       border: 1px solid rgba(255,255,255,.88);
       border-radius: 22px;
-      box-shadow: 0 10px 34px rgba(6,56,70,.14), inset 0 1px 0 rgba(255,255,255,.92);
+      box-shadow: 0 12px 34px rgba(6,56,70,.11), inset 0 1px 0 rgba(255,255,255,.78);
       -webkit-backdrop-filter: blur(18px) saturate(1.14);
       backdrop-filter: blur(18px) saturate(1.14);
     }
@@ -1014,8 +1020,8 @@
       background: var(--white);
       border: 1px solid var(--line);
       border-radius: 22px;
-      background: rgba(255,255,255,.60);
-      border: 1px solid rgba(255,255,255,.82);
+      background: var(--glass-clear);
+      border: 1px solid var(--glass-line);
       box-shadow: 0 10px 30px rgba(6,56,70,.10), inset 0 1px 0 rgba(255,255,255,.90);
       -webkit-backdrop-filter: blur(15px) saturate(1.12);
       backdrop-filter: blur(15px) saturate(1.12);
@@ -1104,7 +1110,7 @@
 
     .library-chip {
       padding: 13px 14px;
-      background: rgba(255,255,255,.58);
+      background: var(--glass-clear);
       border: 1px solid var(--line);
       border-radius: 15px;
     }
@@ -1119,7 +1125,7 @@
       display: grid;
       place-items: center;
       padding: 24px;
-      background: rgba(247,252,254,.94);
+      background: rgba(247,252,254,.58);
       -webkit-backdrop-filter: blur(18px);
       backdrop-filter: blur(18px);
       opacity: 0;
@@ -1133,8 +1139,8 @@
     .dev-card {
       width: min(520px, 100%);
       padding: 28px;
-      background: rgba(255,255,255,.76);
-      border: 1px solid rgba(255,255,255,.9);
+      background: var(--glass-clear-strong);
+      border: 1px solid var(--glass-line);
       border-radius: 28px;
       box-shadow: 0 20px 60px rgba(6,56,70,.16), inset 0 1px 0 rgba(255,255,255,.94);
       -webkit-backdrop-filter: blur(20px) saturate(1.12);
@@ -1529,10 +1535,10 @@
   </div>
 
   <!-- ======================================================= SCRIPTS ======================================================= -->
-  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 
   <script>
+    window.addEventListener("DOMContentLoaded", () => {
     /* ========================================================= DATA ========================================================= */
     const samples = [
       { sno: 1, id: "S-8", location: "Chandra k", lat: 25.31275, lng: 83.014842, elevation: 97, ph: 8.37, ec: 890, orp: 174, temp: 29.2, tds: 569.6, remarks: "Drinkable" },
@@ -1572,6 +1578,14 @@
       { sno: 35, id: "S-13", location: "Principal Colony", lat: 25.270636, lng: 82.985120, elevation: null, ph: 7.65, ec: 580, orp: 161, temp: 28.1, tds: 371.2, remarks: "Drinkable" },
       { sno: 36, id: "S-14", location: "Broacha Hostel", lat: 25.271336, lng: 82.989640, elevation: null, ph: 7.65, ec: 580, orp: 161, temp: 28.1, tds: 371.2, remarks: "Drinkable" }
     ];
+
+    /* ========================================================= HAPTICS ========================================================= */
+    function haptic(type = "tick") {
+      if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+      if (!("vibrate" in navigator)) return;
+      const pattern = type === "click" ? 12 : type === "success" ? [8, 20, 12] : 7;
+      try { navigator.vibrate(pattern); } catch (_) {}
+    }
 
     /* ========================================================= HELPERS ========================================================= */
     const $ = selector => document.querySelector(selector);
@@ -1753,6 +1767,7 @@
 
     mapFullscreen.addEventListener("click", event => {
       event.stopPropagation();
+      haptic("click");
       setMapFullscreen(!mapShell.classList.contains("map-fullscreen"));
     });
 
@@ -1773,7 +1788,7 @@
       devPage.setAttribute("aria-hidden", "true");
     }
 
-    devClose.addEventListener("click", closeDevPage);
+    devClose.addEventListener("click", () => { haptic("tick"); closeDevPage(); });
     devPage.addEventListener("click", event => {
       if (event.target === devPage) closeDevPage();
     });
@@ -1785,6 +1800,7 @@
     let brandTapCount = 0;
     let brandTapTimer = null;
     brandButton.addEventListener("click", () => {
+      haptic("click");
       brandTapCount += 1;
       window.clearTimeout(brandTapTimer);
 
@@ -1911,7 +1927,7 @@
     }
 
     searchInput.addEventListener("input", renderData);
-    statusFilter.addEventListener("change", renderData);
+    statusFilter.addEventListener("change", () => { haptic("tick"); renderData(); });
     renderData();
 
     /* ========================================================= TAB NAVIGATION ========================================================= */
@@ -1959,6 +1975,7 @@
     navItems.forEach((item, index) => {
       item.addEventListener("click", () => {
         if (currentPage !== index) {
+          haptic("tick");
           switchPage(index);
           const nav = document.querySelector(".floating-nav");
           nav.classList.remove("is-animating");
@@ -2043,6 +2060,7 @@
         });
       });
     }
+  });
   </script>
 </body>
 </html>
