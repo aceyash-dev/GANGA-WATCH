@@ -1748,22 +1748,21 @@
       }
     );
 
-    // ArcGIS World Imagery is the maintained global imagery service.
-    // It is refreshed continuously from multiple providers and does not require
-    // an API key on this public tile endpoint. The service does not expose
-    // a cloud-cover control in the app UI.
-    const imagerySatellite = L.tileLayer(
-      "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+    // NIMBO free satellite basemap.
+    // This public, token-free layer is the June 2023 cloud-free RGB mosaic
+    // documented by NIMBO for direct GIS/web-map use.
+    const nimboFree = L.tileLayer(
+      "https://prod-data.nimbo.earth/mapcache-free/tms/1.0.0/latest@kermap/{z}/{x}/{-y}.png",
       {
         minZoom: 11,
-        maxZoom: 14,
+        maxZoom: 19,
         bounds: studyBounds,
         keepBuffer: 0,
         updateWhenIdle: true,
         updateWhenZooming: false,
         updateInterval: 150,
         noWrap: true,
-        attribution: '&copy; <a href="https://www.esri.com/" target="_blank" rel="noopener">Esri</a>, Vantor, Earthstar Geographics, and the GIS User Community'
+        attribution: '&copy; NIMBO by KERMAP &mdash; based on Copernicus Sentinel-2 data'
       }
     );
 
@@ -1772,7 +1771,7 @@
     L.control.layers(
       {
         "Street": osmStreet,
-        "Satellite": imagerySatellite
+        "Satellite": nimboFree
       },
       null,
       { position: "topright", collapsed: true }
