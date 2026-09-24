@@ -1272,7 +1272,7 @@
                 <span class="eyebrow-dot"></span>
                 Varanasi water observations
               </div>
-              <h1>Know the water.<br>Know the river.</h1>
+              <h1>The Ganga,<br>Mapped</h1>
               <p class="hero-text">
                 Explore the recorded water-quality observations across wells and kunds in Varanasi. Tap a location for its measurements.
               </p>
@@ -1496,17 +1496,17 @@
 
     L.control.zoom({ position: "bottomleft" }).addTo(map);
 
-    // ArcGIS cached map services provide the GIS basemaps. No API key is required
-    // for these public services, keeping this static site dependency-free.
-    const arcgisStreet = L.tileLayer(
-      "https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
+    // OpenStreetMap provides the street basemap. Esri provides satellite imagery.
+    // Keep attribution visible and let the browser/provider cache work normally.
+    const osmStreet = L.tileLayer(
+      "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
       {
         maxZoom: 19,
-        attribution: '&copy; <a href="https://www.esri.com/" target="_blank" rel="noopener">Esri</a> and the GIS User Community'
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>'
       }
     );
 
-    const arcgisImagery = L.tileLayer(
+    const esriImagery = L.tileLayer(
       "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
       {
         maxZoom: 19,
@@ -1514,12 +1514,12 @@
       }
     );
 
-    arcgisStreet.addTo(map);
+    osmStreet.addTo(map);
 
     L.control.layers(
       {
-        "ArcGIS Streets": arcgisStreet,
-        "ArcGIS Imagery": arcgisImagery
+        "OpenStreetMap Streets": osmStreet,
+        "Esri Satellite": esriImagery
       },
       null,
       { position: "topright", collapsed: true }
@@ -1797,6 +1797,8 @@
     }, { passive: true });
 
     viewport.addEventListener("touchend", event => {
+      if (mapShell.classList.contains("map-fullscreen")) return;
+
       const touch = event.changedTouches[0];
       const dx = touch.clientX - touchStartX;
       const dy = touch.clientY - touchStartY;
