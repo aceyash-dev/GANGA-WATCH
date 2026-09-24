@@ -1641,9 +1641,6 @@
 
     /* ========================================================= MAP ========================================================= */
 
-
-    L.control.zoom({ position: "bottomleft" }).addTo(map);
-
     const markers = [];
     const mappedSamples = samples.filter(sample =>
       Number.isFinite(sample.lat) && Number.isFinite(sample.lng)
