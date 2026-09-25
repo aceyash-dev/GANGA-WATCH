@@ -232,11 +232,19 @@
     }
 
     .app.map-is-fullscreen .header-inner {
+      width: auto;
+      margin: 0;
+      padding: max(10px, env(safe-area-inset-top)) 0 0 16px;
       pointer-events: none;
     }
 
     .app.map-is-fullscreen .brand {
       pointer-events: auto;
+      height: 54px;
+      padding: 0 22px;
+      border-radius: 18px;
+      font-size: 18px;
+      box-shadow: 0 7px 22px rgba(6,56,70,.12), inset 0 1px 0 rgba(255,255,255,.94);
     }
 
     .app.map-is-fullscreen .header-actions {
@@ -1509,15 +1517,33 @@
     }
 
     .map-shell.map-fullscreen .map-legend {
-      top: calc(max(18px, env(safe-area-inset-top)) + 122px);
+      top: calc(max(18px, env(safe-area-inset-top)) + 74px);
       right: 16px;
       left: auto;
       bottom: auto;
-      width: min(520px, calc(100vw - 32px));
+      width: min(620px, calc(100vw - 32px));
     }
 
     .map-shell.map-fullscreen #map {
       height: 100%;
+    }
+
+    .map-shell.map-fullscreen .map-legend {
+      padding: 5px;
+      border-radius: 15px;
+    }
+
+    .map-shell.map-fullscreen .legend-scroll {
+      gap: 5px;
+      min-width: 0;
+      width: 100%;
+    }
+
+    .map-shell.map-fullscreen .legend-item {
+      min-height: 34px;
+      padding: 0 11px;
+      font-size: 10px;
+      flex: 0 0 auto;
     }
 
     .map-fullscreen-toggle {
@@ -1547,6 +1573,12 @@
 
     .app.map-is-fullscreen .leaflet-top.leaflet-right {
       display: block;
+      top: 16px;
+      right: 16px;
+    }
+
+    .app.map-is-fullscreen .leaflet-control-layers {
+      margin-top: 54px !important;
     }
 
     .leaflet-control-layers {
@@ -1631,11 +1663,17 @@
       }
 
       .map-shell.map-fullscreen .map-legend {
-        top: calc(max(10px, env(safe-area-inset-top)) + 116px);
+        top: calc(max(10px, env(safe-area-inset-top)) + 74px);
         right: 10px;
         left: 10px;
         bottom: auto;
         width: auto;
+      }
+
+      .map-shell.map-fullscreen .legend-item {
+        min-height: 34px;
+        padding: 0 10px;
+        font-size: 10px;
       }
 
       .legend-item {
