@@ -1517,12 +1517,12 @@
     }
 
     .map-shell.map-fullscreen .map-legend {
-      top: calc(max(18px, env(safe-area-inset-top)) + 114px);
+      top: calc(max(18px, env(safe-area-inset-top)) + 70px);
       right: 16px;
-      left: auto;
+      left: 16px;
       bottom: auto;
-      width: min(620px, calc(100vw - 32px));
-      max-width: calc(100vw - 32px);
+      width: auto;
+      max-width: none;
     }
 
     .map-shell.map-fullscreen #map {
@@ -1580,8 +1580,8 @@
 
     .app.map-is-fullscreen .leaflet-top.leaflet-right {
       display: block;
-      top: 62px;
-      right: 16px;
+      top: 16px;
+      right: 70px;
     }
 
     .app.map-is-fullscreen .leaflet-control-layers {
@@ -1659,8 +1659,8 @@
       }
 
       .app.map-is-fullscreen .leaflet-top.leaflet-right {
-        top: 62px;
-        right: 10px;
+        top: 10px;
+        right: 62px;
       }
       .map-legend {
         right: 10px;
@@ -1670,7 +1670,7 @@
       }
 
       .map-shell.map-fullscreen .map-legend {
-        top: calc(max(10px, env(safe-area-inset-top)) + 112px);
+        top: calc(max(10px, env(safe-area-inset-top)) + 64px);
         right: 10px;
         left: 10px;
         bottom: auto;
@@ -1832,6 +1832,18 @@
                   <button class="legend-item" type="button" data-filter-group="site" data-filter-value="well" aria-pressed="true">
                     <span class="legend-icon"><i class="ph ph-cylinder" aria-hidden="true"></i></span>
                     Well / Koop
+                  </button>
+                  <button class="legend-item" type="button" data-filter-group="site" data-filter-value="kund" aria-pressed="true">
+                    <span class="legend-icon"><i class="ph ph-waves" aria-hidden="true"></i></span>
+                    Kund
+                  </button>
+                  <button class="legend-item" type="button" data-filter-group="site" data-filter-value="supply" aria-pressed="true">
+                    <span class="legend-icon"><i class="ph ph-drop" aria-hidden="true"></i></span>
+                    Supply / Pump
+                  </button>
+                  <button class="legend-item" type="button" data-filter-group="site" data-filter-value="other" aria-pressed="true">
+                    <span class="legend-icon"><i class="ph ph-map-pin" aria-hidden="true"></i></span>
+                    Other
                   </button>
                 </div>
               </div>
@@ -2337,7 +2349,7 @@
     const legendChips = [...document.querySelectorAll(".legend-item[data-filter-group]")];
     const mapFilters = {
       statuses: new Set(["Drinkable", "Dirty", "Very Dirty"]),
-      showWells: true
+      sites: new Set(["well", "kund", "supply", "other"])
     };
 
     function setMapFullscreen(enabled) {
@@ -2421,7 +2433,7 @@
     function applyMapFilters() {
       markers.forEach(({ sample, marker }) => {
         const statusVisible = mapFilters.statuses.has(sample.remarks);
-        const siteVisible = mapFilters.showWells || siteTypeForSample(sample).key !== "well";
+        const siteVisible = mapFilters.sites.has(siteTypeForSample(sample).key);
         const visible = statusVisible && siteVisible;
 
         if (visible) {
@@ -2447,13 +2459,17 @@
           } else {
             mapFilters.statuses.add(value);
           }
-        } else if (group === "site" && value === "well") {
-          mapFilters.showWells = !pressed;
+        } else if (group === "site") {
+          if (pressed) {
+            mapFilters.sites.delete(value);
+          } else {
+            mapFilters.sites.add(value);
+          }
         }
 
         const nextPressed = group === "status"
           ? mapFilters.statuses.has(value)
-          : mapFilters.showWells;
+          : mapFilters.sites.has(value);
 
         chip.setAttribute("aria-pressed", String(nextPressed));
         applyMapFilters();
