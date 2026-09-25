@@ -227,8 +227,20 @@
     }
 
     .app.map-is-fullscreen .app-header {
-      transform: translate3d(0, calc(-100% - 18px), 0);
+      transform: translate3d(0, 0, 0);
       pointer-events: none;
+    }
+
+    .app.map-is-fullscreen .header-inner {
+      pointer-events: none;
+    }
+
+    .app.map-is-fullscreen .brand {
+      pointer-events: auto;
+    }
+
+    .app.map-is-fullscreen .header-actions {
+      display: none;
     }
 
     .app.map-is-fullscreen .floating-nav {
@@ -1151,14 +1163,150 @@
       }
     }
 
+    .about-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 22px;
+      color: var(--sea-700);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+
+    .about-mark-drop {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--sea-600);
+      border-radius: 10px;
+      box-shadow: 0 6px 16px rgba(8,119,143,.16);
+    }
+
+    .about-mark-drop i { font-size: 15px; }
+
     .about-hero h2 {
       margin: 0;
       color: var(--sea-900);
       font-family: "Playfair Display", Georgia, serif;
-      font-size: clamp(48px, 7vw, 82px);
+      font-size: clamp(46px, 7vw, 82px);
       line-height: .98;
       font-weight: 600;
       letter-spacing: -.045em;
+    }
+
+    .about-hero-revamp {
+      max-width: 860px;
+    }
+
+    .about-feature-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .about-feature {
+      min-height: 190px;
+      padding: 20px;
+      background: var(--glass-clear);
+      border: 1px solid var(--glass-line);
+      border-radius: 22px;
+      box-shadow: 0 10px 30px rgba(6,56,70,.08), inset 0 1px 0 rgba(255,255,255,.88);
+      -webkit-backdrop-filter: blur(12px) saturate(1.08);
+      backdrop-filter: blur(15px) saturate(1.1);
+    }
+
+    .about-feature-primary {
+      background: linear-gradient(145deg, rgba(21,143,167,.11), rgba(255,255,255,.22));
+    }
+
+    .about-feature-icon,
+    .about-section-icon {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      color: var(--sea-700);
+      background: var(--sea-50);
+      border: 1px solid var(--sea-100);
+      border-radius: 13px;
+    }
+
+    .about-feature-icon {
+      margin-bottom: 22px;
+    }
+
+    .about-feature h3 {
+      margin: 5px 0 5px;
+      color: var(--sea-900);
+      font-size: 17px;
+      line-height: 1.25;
+    }
+
+    .about-feature p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .about-section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+
+    .about-section-heading h3 {
+      margin: 4px 0 0;
+      color: var(--sea-900);
+      font-size: 18px;
+    }
+
+    .about-steps {
+      display: grid;
+      gap: 0;
+    }
+
+    .about-step {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 13px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .about-step:first-child { border-top: 0; }
+
+    .about-step > span {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      color: var(--sea-700);
+      background: var(--sea-50);
+      border-radius: 9px;
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .about-step strong {
+      display: block;
+      color: var(--sea-900);
+      font-size: 13px;
+    }
+
+    .about-step small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.45;
     }
 
     .about-card {
@@ -1350,7 +1498,7 @@
     .map-shell.map-fullscreen {
       position: fixed;
       inset: 0;
-      z-index: 9999;
+      z-index: 900;
       width: 100vw;
       height: 100dvh;
       min-height: 0;
@@ -1361,8 +1509,11 @@
     }
 
     .map-shell.map-fullscreen .map-legend {
-      top: calc(max(18px, env(safe-area-inset-top)) + 66px);
+      top: calc(max(18px, env(safe-area-inset-top)) + 122px);
+      right: 16px;
+      left: auto;
       bottom: auto;
+      width: min(520px, calc(100vw - 32px));
     }
 
     .map-shell.map-fullscreen #map {
@@ -1391,6 +1542,11 @@
     .leaflet-top.leaflet-right {
       top: 16px;
       right: 16px;
+      display: none;
+    }
+
+    .app.map-is-fullscreen .leaflet-top.leaflet-right {
+      display: block;
     }
 
     .leaflet-control-layers {
@@ -1460,16 +1616,40 @@
 
       .leaflet-top.leaflet-right {
         top: 10px;
-        right: 62px;
+        right: 10px;
+      }
+
+      .app.map-is-fullscreen .leaflet-top.leaflet-right {
+        top: 10px;
+        right: 10px;
       }
       .map-legend {
         right: 10px;
         bottom: 10px;
         left: 10px;
+        width: auto;
       }
+
+      .map-shell.map-fullscreen .map-legend {
+        top: calc(max(10px, env(safe-area-inset-top)) + 116px);
+        right: 10px;
+        left: 10px;
+        bottom: auto;
+        width: auto;
+      }
+
       .legend-item {
-        padding: 7px 8px;
+        min-height: 36px;
+        padding: 0 11px;
       }
+      .about-feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-feature {
+        min-height: 0;
+      }
+
       .data-heading h2 {
         font-size: 48px;
       }
@@ -1665,67 +1845,82 @@
         <!-- ================================================= ABOUT PAGE ================================================= -->
         <section class="page" id="aboutPage" aria-label="About Ganga Watch">
           <div class="page-inner">
-            <section class="about-hero">
-        <div class="about-tagline" aria-label="Ganga, as Watched">Ganga,<br>as Watched</div>
+            <section class="about-hero about-hero-revamp">
+              <div class="about-mark">
+                <span class="about-mark-drop"><i class="ph ph-drop" aria-hidden="true"></i></span>
+                <span>GANGA WATCH</span>
+              </div>
               <div class="eyebrow">
                 <span class="eyebrow-dot"></span>
-                About Ganga Watch
+                Field observation project · Varanasi
               </div>
-              <h2>Science for<br>the river.</h2>
+              <h2>See the water.<br>Read the record.</h2>
               <p class="hero-text">
-                Ganga Watch is a student-led water-quality observation project built to document field measurements and make them easier to explore.
+                Ganga Watch makes recorded water-quality observations easier to locate, inspect, and compare across wells, kunds, and other sampled sites in Varanasi.
               </p>
             </section>
 
-            <section class="about-card">
-              <div class="about-icon">
-                <i class="ph ph-drop" aria-hidden="true"></i>
-              </div>
-              <div>
-                <div class="about-kicker">Developed by</div>
-                <h3>Developed by the B.Sc. Geology Dept. Students from BHU</h3>
+            <section class="about-feature-grid">
+              <article class="about-feature about-feature-primary">
+                <span class="about-feature-icon"><i class="ph ph-drop" aria-hidden="true"></i></span>
+                <div class="about-kicker">Who made it</div>
+                <h3>B.Sc. Geology Department students</h3>
                 <p>Banaras Hindu University (BHU)</p>
+              </article>
+
+              <article class="about-feature">
+                <span class="about-feature-icon"><i class="ph ph-map-trifold" aria-hidden="true"></i></span>
+                <div class="about-kicker">Map</div>
+                <h3>Locate observations</h3>
+                <p>Explore sampled locations and open each site's recorded measurements.</p>
+              </article>
+
+              <article class="about-feature">
+                <span class="about-feature-icon"><i class="ph ph-chart-line-up" aria-hidden="true"></i></span>
+                <div class="about-kicker">Data</div>
+                <h3>Inspect measurements</h3>
+                <p>Review pH, TDS, EC, ORP, temperature, elevation, and recorded status.</p>
+              </article>
+            </section>
+
+            <section class="about-card about-card-plain about-method">
+              <div class="about-section-heading">
+                <div>
+                  <div class="about-kicker">How to use it</div>
+                  <h3>Map → filter → inspect</h3>
+                </div>
+                <span class="about-section-icon"><i class="ph ph-funnel" aria-hidden="true"></i></span>
+              </div>
+
+              <div class="about-steps">
+                <div class="about-step">
+                  <span>01</span>
+                  <div><strong>Open the map</strong><small>Pan and zoom around the mapped study area.</small></div>
+                </div>
+                <div class="about-step">
+                  <span>02</span>
+                  <div><strong>Use the chips</strong><small>Toggle Drinkable, Dirty, Very Dirty, or Well / Koop markers.</small></div>
+                </div>
+                <div class="about-step">
+                  <span>03</span>
+                  <div><strong>Open a marker</strong><small>Inspect the measurements recorded for that location.</small></div>
+                </div>
               </div>
             </section>
 
             <section class="about-card about-card-plain">
-              <div class="about-row">
-                <i class="ph ph-map-trifold" aria-hidden="true"></i>
+              <div class="about-section-heading">
                 <div>
-                  <strong>Field observations</strong>
-                  <span>Water-quality measurements from Varanasi sample locations.</span>
+                  <div class="about-kicker">Built with</div>
+                  <h3>Open web tooling</h3>
                 </div>
+                <span class="about-section-icon"><i class="ph ph-code" aria-hidden="true"></i></span>
               </div>
-              <div class="about-row">
-                <i class="ph ph-chart-line-up" aria-hidden="true"></i>
-                <div>
-                  <strong>Open exploration</strong>
-                  <span>Browse measurements, compare locations, and inspect mapped samples.</span>
-                </div>
-              </div>
-              <div class="about-row">
-                <i class="ph ph-code" aria-hidden="true"></i>
-                <div>
-                  <strong>Libraries used</strong>
-                  <div class="about-libraries">
-                    <div class="library-chip">
-                      <strong>Capacitor</strong>
-                      <span>8.5.2 · Android bridge</span>
-                    </div>
-                    <div class="library-chip">
-                      <strong>Leaflet</strong>
-                      <span>1.9.4 · Interactive maps</span>
-                    </div>
-                    <div class="library-chip">
-                      <strong>Phosphor Icons</strong>
-                      <span>2.1.1 · UI icons</span>
-                    </div>
-                    <div class="library-chip">
-                      <strong>Google Fonts</strong>
-                      <span>Manrope + Playfair Display</span>
-                    </div>
-                  </div>
-                </div>
+              <div class="about-libraries">
+                <div class="library-chip"><strong>Capacitor</strong><span>8.5.2 · Android bridge</span></div>
+                <div class="library-chip"><strong>Leaflet</strong><span>1.9.4 · Interactive maps</span></div>
+                <div class="library-chip"><strong>Phosphor Icons</strong><span>2.1.1 · UI icons</span></div>
+                <div class="library-chip"><strong>Google Fonts</strong><span>Manrope + Playfair Display</span></div>
               </div>
             </section>
           </div>
