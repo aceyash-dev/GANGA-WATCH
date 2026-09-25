@@ -1,4 +1,4 @@
-const CACHE_NAME = "ganga-watch-assets-v3";
+const CACHE_NAME = "ganga-watch-assets-v4";
 const STATIC_ASSETS = [
   "/",
   "/index.html",
