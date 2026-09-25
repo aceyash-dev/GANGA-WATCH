@@ -248,6 +248,29 @@
       gap: 10px;
     }
 
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .header-actions .header-action {
+      pointer-events: auto;
+    }
+
+    .map-header-fullscreen {
+      display: none;
+    }
+
+    .app.map-is-fullscreen .header-about {
+      display: none;
+    }
+
+    .app.map-is-fullscreen .map-header-fullscreen {
+      display: grid;
+    }
+
     .brand {
       pointer-events: auto;
       display: flex;
@@ -406,47 +429,37 @@
     .map-legend {
       position: absolute;
       z-index: 600;
-      top: 72px;
+      top: calc(max(18px, env(safe-area-inset-top)) + 66px);
       left: 16px;
       right: 16px;
       bottom: auto;
+      padding: 6px;
+      background: rgba(255,255,255,.54);
+      border: 1px solid rgba(255,255,255,.88);
+      border-radius: 18px;
+      box-shadow: 0 8px 24px rgba(6,56,70,.12), inset 0 1px 0 rgba(255,255,255,.9);
+      -webkit-backdrop-filter: blur(10px) saturate(1.06);
+      backdrop-filter: blur(10px) saturate(1.06);
+      overflow: hidden;
+      pointer-events: auto;
+    }
+
+    .legend-scroll {
       display: flex;
-      flex-direction: row;
       align-items: center;
-      justify-content: flex-start;
       gap: 7px;
-      max-width: none;
+      width: max-content;
+      min-width: 100%;
       overflow-x: auto;
       overflow-y: hidden;
-      padding: 2px 2px 5px;
-      pointer-events: none;
+      padding: 1px;
       scrollbar-width: none;
       -ms-overflow-style: none;
+      touch-action: pan-x;
     }
 
-    .map-legend::-webkit-scrollbar {
+    .legend-scroll::-webkit-scrollbar {
       display: none;
-    }
-
-    .legend-group {
-      display: flex;
-      flex: 0 0 auto;
-      flex-wrap: nowrap;
-      justify-content: flex-start;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .legend-group-title {
-      width: auto;
-      flex: 0 0 auto;
-      margin: 0 2px 0 0;
-      color: rgba(16,42,51,.72);
-      font-size: 8px;
-      font-weight: 800;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      text-align: left;
     }
 
     .legend-item {
@@ -1333,7 +1346,7 @@
     }
 
     .map-shell.map-fullscreen .map-legend {
-      top: 72px;
+      top: calc(max(18px, env(safe-area-inset-top)) + 66px);
     }
 
     .map-shell.map-fullscreen #map {
@@ -1522,9 +1535,17 @@
         <button class="brand" id="brandButton" type="button" aria-label="Ganga Watch. Tap three times for Developer page.">
           <span class="brand-name">Ganga Watch</span>
         </button>
-        <button class="header-action" id="aboutButton" type="button" aria-label="About Ganga Watch" title="About">
-          <i class="ph ph-info" aria-hidden="true"></i>
-        </button>
+        <div class="header-actions">
+          <button class="header-action" id="layersButton" type="button" aria-label="Map layers" title="Map layers">
+            <i class="ph ph-stack" aria-hidden="true"></i>
+          </button>
+          <button class="header-action map-header-fullscreen" id="mapFullscreen" type="button" aria-label="Fullscreen map" title="Fullscreen map">
+            <i class="ph ph-arrows-out" aria-hidden="true"></i>
+          </button>
+          <button class="header-action header-about" id="aboutButton" type="button" aria-label="About Ganga Watch" title="About">
+            <i class="ph ph-info" aria-hidden="true"></i>
+          </button>
+        </div>
       </div>
     </header>
 
@@ -1546,37 +1567,16 @@
             </section>
 
             <section class="map-shell">
-              <button class="map-fullscreen-toggle" id="mapFullscreen" aria-label="Fullscreen map" title="Fullscreen map">
-                <i class="ph ph-arrows-out" aria-hidden="true"></i>
-              </button>
               <div id="map"></div>
               <div class="map-legend" aria-label="Map legend">
-                <div class="legend-group">
-                  <span class="legend-group-title">Water status</span>
-                  <div class="legend-item">
-                    <span class="legend-dot drinkable"></span> Drinkable
-                  </div>
-                  <div class="legend-item">
-                    <span class="legend-dot dirty"></span> Dirty
-                  </div>
-                  <div class="legend-item">
-                    <span class="legend-dot very-dirty"></span> Very Dirty
-                  </div>
-                </div>
-                <div class="legend-group">
-                  <span class="legend-group-title">Site type</span>
-                  <div class="legend-item">
-                    <span class="legend-icon"><i class="ph ph-cylinder" aria-hidden="true"></i></span> Well / Koop
-                  </div>
-                  <div class="legend-item">
-                    <span class="legend-icon"><i class="ph ph-waves" aria-hidden="true"></i></span> Kund
-                  </div>
-                  <div class="legend-item">
-                    <span class="legend-icon"><i class="ph ph-drop" aria-hidden="true"></i></span> Supply / Pump
-                  </div>
-                  <div class="legend-item">
-                    <span class="legend-icon"><i class="ph ph-map-pin" aria-hidden="true"></i></span> Other
-                  </div>
+                <div class="legend-scroll">
+                  <div class="legend-item"><span class="legend-dot drinkable"></span> Drinkable</div>
+                  <div class="legend-item"><span class="legend-dot dirty"></span> Dirty</div>
+                  <div class="legend-item"><span class="legend-dot very-dirty"></span> Very Dirty</div>
+                  <div class="legend-item"><span class="legend-icon"><i class="ph ph-cylinder" aria-hidden="true"></i></span> Well / Koop</div>
+                  <div class="legend-item"><span class="legend-icon"><i class="ph ph-waves" aria-hidden="true"></i></span> Kund</div>
+                  <div class="legend-item"><span class="legend-icon"><i class="ph ph-drop" aria-hidden="true"></i></span> Supply / Pump</div>
+                  <div class="legend-item"><span class="legend-icon"><i class="ph ph-map-pin" aria-hidden="true"></i></span> Other</div>
                 </div>
               </div>
             </section>
@@ -1852,7 +1852,7 @@
     // The rectangular maxBounds keeps tile requests local; the moveend clamp
     // below prevents the map center from escaping the 200 km circle.
     const mapCenter = [25.3176, 82.9739];
-    const MAP_RADIUS_METERS = 200000;
+    const MAP_RADIUS_METERS = 100000;
     const latDelta = MAP_RADIUS_METERS / 111320;
     const lngDelta = MAP_RADIUS_METERS / (111320 * Math.cos(mapCenter[0] * Math.PI / 180));
     const studyBounds = L.latLngBounds(
@@ -1870,8 +1870,8 @@
       markerZoomAnimation: false,
       maxBounds: studyBounds,
       maxBoundsViscosity: 1,
-      minZoom: 5,
-      maxZoom: 19
+      minZoom: 2,
+      maxZoom: 18
     });
 
     L.control.zoom({ position: "bottomleft" }).addTo(map);
@@ -2060,6 +2060,7 @@
     const mapFullscreen = $("#mapFullscreen");
     const brandButton = $("#brandButton");
     const aboutButton = $("#aboutButton");
+    const layersButton = $("#layersButton");
     const devPage = $("#devPage");
     const devClose = $("#devClose");
 
@@ -2072,6 +2073,13 @@
       mapFullscreen.setAttribute("aria-label", enabled ? "Exit fullscreen map" : "Fullscreen map");
       map.invalidateSize();
     }
+
+    layersButton.addEventListener("click", event => {
+      event.stopPropagation();
+      haptic("tick");
+      const toggle = document.querySelector(".leaflet-control-layers-toggle");
+      if (toggle) toggle.click();
+    });
 
     mapFullscreen.addEventListener("click", event => {
       event.stopPropagation();
