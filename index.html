@@ -227,9 +227,8 @@
     }
 
     .app.map-is-fullscreen .app-header {
-      z-index: 10001;
-      transform: translate3d(0, 0, 0);
-      pointer-events: auto;
+      transform: translate3d(0, calc(-100% - 18px), 0);
+      pointer-events: none;
     }
 
     .app.map-is-fullscreen .floating-nav {
@@ -429,12 +428,11 @@
     .map-legend {
       position: absolute;
       z-index: 600;
-      top: calc(max(18px, env(safe-area-inset-top)) + 66px);
-      left: 16px;
-      right: 16px;
-      bottom: auto;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
       padding: 6px;
-      background: rgba(255,255,255,.54);
+      background: rgba(255,255,255,.72);
       border: 1px solid rgba(255,255,255,.88);
       border-radius: 18px;
       box-shadow: 0 8px 24px rgba(6,56,70,.12), inset 0 1px 0 rgba(255,255,255,.9);
@@ -465,18 +463,35 @@
     .legend-item {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      min-height: 30px;
-      padding: 7px 9px;
+      gap: 7px;
+      min-height: 38px;
+      padding: 0 13px;
       color: var(--ink);
-      background: var(--glass-clear);
-      border: 1px solid rgba(255,255,255,.88);
+      background: rgba(255,255,255,.78);
+      border: 1px solid var(--line);
       border-radius: 999px;
-      box-shadow: 0 6px 20px rgba(6,56,70,.10), inset 0 1px 0 rgba(255,255,255,.9);
+      box-shadow: 0 4px 14px rgba(6,56,70,.08), inset 0 1px 0 rgba(255,255,255,.92);
       -webkit-backdrop-filter: blur(8px) saturate(1.05);
       backdrop-filter: blur(12px) saturate(1.08);
-      font-size: 9px;
+      font-size: 11px;
       font-weight: 800;
+      white-space: nowrap;
+      transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .legend-item:active {
+      transform: scale(.97);
+    }
+
+    .legend-item[aria-pressed="true"] {
+      border-color: var(--sea-300);
+      background: var(--sea-50);
+      box-shadow: 0 5px 16px rgba(21,143,167,.12), inset 0 1px 0 rgba(255,255,255,.96);
+    }
+
+    .legend-item[aria-pressed="false"] {
+      opacity: .58;
+      box-shadow: none;
     }
 
     .legend-dot {
@@ -1540,12 +1555,6 @@
           <span class="brand-name">Ganga Watch</span>
         </button>
         <div class="header-actions">
-          <button class="header-action" id="layersButton" type="button" aria-label="Map layers" title="Map layers">
-            <i class="ph ph-stack" aria-hidden="true"></i>
-          </button>
-          <button class="header-action map-header-fullscreen" id="mapFullscreen" type="button" aria-label="Fullscreen map" title="Fullscreen map">
-            <i class="ph ph-arrows-out" aria-hidden="true"></i>
-          </button>
           <button class="header-action header-about" id="aboutButton" type="button" aria-label="About Ganga Watch" title="About">
             <i class="ph ph-info" aria-hidden="true"></i>
           </button>
@@ -1572,15 +1581,30 @@
 
             <section class="map-shell">
               <div id="map"></div>
-              <div class="map-legend" aria-label="Map legend">
+
+              <button class="map-fullscreen-toggle" id="mapFullscreen" type="button"
+                aria-label="Fullscreen map" title="Fullscreen map">
+                <i class="ph ph-arrows-out" aria-hidden="true"></i>
+              </button>
+
+              <div class="map-legend" aria-label="Map filters">
                 <div class="legend-scroll">
-                  <div class="legend-item"><span class="legend-dot drinkable"></span> Drinkable</div>
-                  <div class="legend-item"><span class="legend-dot dirty"></span> Dirty</div>
-                  <div class="legend-item"><span class="legend-dot very-dirty"></span> Very Dirty</div>
-                  <div class="legend-item"><span class="legend-icon"><i class="ph ph-cylinder" aria-hidden="true"></i></span> Well / Koop</div>
-                  <div class="legend-item"><span class="legend-icon"><i class="ph ph-waves" aria-hidden="true"></i></span> Kund</div>
-                  <div class="legend-item"><span class="legend-icon"><i class="ph ph-drop" aria-hidden="true"></i></span> Supply / Pump</div>
-                  <div class="legend-item"><span class="legend-icon"><i class="ph ph-map-pin" aria-hidden="true"></i></span> Other</div>
+                  <button class="legend-item" type="button" data-filter-group="status" data-filter-value="Drinkable" aria-pressed="true">
+                    <span class="legend-dot drinkable"></span>
+                    Drinkable
+                  </button>
+                  <button class="legend-item" type="button" data-filter-group="status" data-filter-value="Dirty" aria-pressed="true">
+                    <span class="legend-dot dirty"></span>
+                    Dirty
+                  </button>
+                  <button class="legend-item" type="button" data-filter-group="status" data-filter-value="Very Dirty" aria-pressed="true">
+                    <span class="legend-dot very-dirty"></span>
+                    Very Dirty
+                  </button>
+                  <button class="legend-item" type="button" data-filter-group="site" data-filter-value="well" aria-pressed="true">
+                    <span class="legend-icon"><i class="ph ph-cylinder" aria-hidden="true"></i></span>
+                    Well / Koop
+                  </button>
                 </div>
               </div>
             </section>
@@ -2064,10 +2088,14 @@
     const mapFullscreen = $("#mapFullscreen");
     const brandButton = $("#brandButton");
     const aboutButton = $("#aboutButton");
-    const layersButton = $("#layersButton");
-    const layersControl = document.querySelector(".leaflet-control-layers");
     const devPage = $("#devPage");
     const devClose = $("#devClose");
+
+    const legendChips = [...document.querySelectorAll(".legend-item[data-filter-group]")];
+    const mapFilters = {
+      statuses: new Set(["Drinkable", "Dirty", "Very Dirty"]),
+      showWells: true
+    };
 
     function setMapFullscreen(enabled) {
       mapShell.classList.toggle("map-fullscreen", enabled);
@@ -2079,24 +2107,10 @@
       map.invalidateSize();
     }
 
-    layersButton.addEventListener("click", event => {
-      event.stopPropagation();
-      haptic("tick");
-      const toggle = document.querySelector(".leaflet-control-layers-toggle");
-      if (toggle) toggle.click();
-    });
-
     mapFullscreen.addEventListener("click", event => {
       event.stopPropagation();
       haptic("click");
       setMapFullscreen(!mapShell.classList.contains("map-fullscreen"));
-    });
-
-    mapShell.addEventListener("click", event => {
-      if (
-        event.target.closest(".leaflet-control, .leaflet-popup, .map-info, .map-reset, .map-fullscreen-toggle, .map-legend")
-      ) return;
-      if (!mapShell.classList.contains("map-fullscreen")) setMapFullscreen(true);
     });
 
     function openDevPage() {
@@ -2134,6 +2148,48 @@
       brandTapTimer = window.setTimeout(() => {
         brandTapCount = 0;
       }, 360);
+    });
+
+    function applyMapFilters() {
+      markers.forEach(({ sample, marker }) => {
+        const statusVisible = mapFilters.statuses.has(sample.remarks);
+        const siteVisible = mapFilters.showWells || siteTypeForSample(sample).key !== "well";
+        const visible = statusVisible && siteVisible;
+
+        if (visible) {
+          if (!map.hasLayer(marker)) marker.addTo(map);
+        } else {
+          if (marker.isPopupOpen?.()) marker.closePopup();
+          if (map.hasLayer(marker)) map.removeLayer(marker);
+        }
+      });
+    }
+
+    legendChips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        haptic("tick");
+
+        const group = chip.dataset.filterGroup;
+        const value = chip.dataset.filterValue;
+        const pressed = chip.getAttribute("aria-pressed") === "true";
+
+        if (group === "status") {
+          if (pressed) {
+            mapFilters.statuses.delete(value);
+          } else {
+            mapFilters.statuses.add(value);
+          }
+        } else if (group === "site" && value === "well") {
+          mapFilters.showWells = !pressed;
+        }
+
+        const nextPressed = group === "status"
+          ? mapFilters.statuses.has(value)
+          : mapFilters.showWells;
+
+        chip.setAttribute("aria-pressed", String(nextPressed));
+        applyMapFilters();
+      });
     });
 
     aboutButton.addEventListener("click", () => {
