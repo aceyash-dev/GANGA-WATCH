@@ -1831,11 +1831,11 @@
                   </button>
                   <button class="legend-item" type="button" data-filter-group="site" data-filter-value="well" aria-pressed="true">
                     <span class="legend-icon"><i class="ph ph-cylinder" aria-hidden="true"></i></span>
-                    Well / Koop
+                    W · Well
                   </button>
-                  <button class="legend-item" type="button" data-filter-group="site" data-filter-value="kund" aria-pressed="true">
+                  <button class="legend-item" type="button" data-filter-group="site" data-filter-value="koop" aria-pressed="true">
                     <span class="legend-icon"><i class="ph ph-waves" aria-hidden="true"></i></span>
-                    Kund
+                    K · Koop
                   </button>
                   <button class="legend-item" type="button" data-filter-group="site" data-filter-value="supply" aria-pressed="true">
                     <span class="legend-icon"><i class="ph ph-drop" aria-hidden="true"></i></span>
@@ -2027,42 +2027,42 @@
     window.addEventListener("DOMContentLoaded", () => {
     /* ========================================================= DATA ========================================================= */
     const samples = [
-      { sno: 1, id: "S-8", location: "Chandra k", lat: 25.31275, lng: 83.014842, elevation: 97, ph: 8.37, ec: 890, orp: 174, temp: 29.2, tds: 569.6, remarks: "Drinkable" },
-      { sno: 2, id: "S-9", location: "Kaal k", lat: 25.317543, lng: 83.016283, elevation: 86, ph: 7.68, ec: 790, orp: 176, temp: 28.7, tds: 505.6, remarks: "Drinkable" },
-      { sno: 3, id: "S-10", location: "Ratna k", lat: 25.32117, lng: 83.015215, elevation: 85, ph: 7.84, ec: 850, orp: 184, temp: 28.1, tds: 544, remarks: "Drinkable" },
-      { sno: 4, id: "S-11", location: "Dhanwantari k", lat: 25.322339, lng: 83.015083, elevation: 85, ph: 7.78, ec: 840, orp: 200, temp: 29.9, tds: 537.6, remarks: "Drinkable" },
-      { sno: 5, id: "S-13", location: "Bada no-5", lat: 25.320076, lng: 83.015942, elevation: 79, ph: 7.72, ec: 670, orp: 197, temp: 28.9, tds: 428.8, remarks: "Drinkable" },
-      { sno: 6, id: "S-14", location: "Well-1", lat: 25.320731, lng: 83.016704, elevation: 80, ph: 7.36, ec: 1030, orp: 205, temp: 28.8, tds: 659.2, remarks: "Drinkable" },
-      { sno: 7, id: "S-15", location: "Well-2", lat: 25.320709, lng: 83.016702, elevation: 80, ph: 7.38, ec: 1050, orp: 205, temp: 28.3, tds: 672, remarks: "Drinkable" },
-      { sno: 8, id: "S-16", location: "Muqeemganj 2", lat: 25.321618, lng: 83.024809, elevation: 82, ph: 7.26, ec: 670, orp: 193, temp: 28.7, tds: 428.8, remarks: "Drinkable" },
-      { sno: 9, id: "S-18", location: "Narmada K", lat: 25.319688, lng: 83.024221, elevation: 80, ph: 7.27, ec: 970, orp: 220, temp: 28.9, tds: 620.8, remarks: "Drinkable" },
-      { sno: 10, id: "S-25", location: "Well-Ramnagar", lat: 25.267534, lng: 83.043854, elevation: 80, ph: 7.67, ec: 600, orp: 217, temp: 29.2, tds: 384, remarks: "Drinkable" },
-      { sno: 11, id: "S-30", location: "Bhadaini Well", lat: 25.292114, lng: 83.004585, elevation: 78, ph: 7.68, ec: 960, orp: 105, temp: 28.4, tds: 614.4, remarks: "Drinkable" },
-      { sno: 12, id: "S-31", location: "Ramnagar Well 2", lat: 25.270047, lng: 83.028538, elevation: 64, ph: 7.65, ec: 850, orp: 180, temp: 28.6, tds: 544, remarks: "Drinkable" },
-      { sno: 13, id: "S-1", location: "Pushkar Kund", lat: 25.28558, lng: 83.00394, elevation: 76, ph: 7.70, ec: 620, orp: 248, temp: 29.2, tds: 396.8, remarks: "Very Dirty" },
-      { sno: 14, id: "S-2", location: "Lolark Kund", lat: 25.29111, lng: 83.00567, elevation: 66, ph: 7.87, ec: 480, orp: 255, temp: 29.8, tds: 307.2, remarks: "Drinkable" },
-      { sno: 15, id: "S-3", location: "Lakshami Kund", lat: 25.30984, lng: 83.00035, elevation: 80, ph: 7.46, ec: 940, orp: 126, temp: 29.7, tds: 601.6, remarks: "Dirty" },
-      { sno: 16, id: "S-4", location: "Ram Kund", lat: 25.3092, lng: 82.99651, elevation: 81, ph: 7.07, ec: 590, orp: -111, temp: 30, tds: 377.6, remarks: "Dirty" },
-      { sno: 17, id: "S-5", location: "Suraj Kund", lat: 25.31239, lng: 83.00286, elevation: 80, ph: 7.57, ec: 630, orp: 71, temp: 28.7, tds: 403.2, remarks: "Dirty" },
-      { sno: 18, id: "S-7", location: "Manikarnika Kund", lat: 25.31158, lng: 83.01481, elevation: 60, ph: 7.40, ec: 890, orp: 153, temp: 28.8, tds: 569.6, remarks: "Drinkable" },
-      { sno: 19, id: "S-12", location: "Lat Bhairav Kund", lat: 25.33283, lng: 83.02406, elevation: 79, ph: 8.17, ec: 2090, orp: 206, temp: 29.8, tds: 1337.6, remarks: "Dirty" },
-      { sno: 20, id: "S-21", location: "Mandakini Kund", lat: 25.32025, lng: 83.01433, elevation: 77, ph: 7.74, ec: 820, orp: 217, temp: 28.9, tds: 524.8, remarks: "Dirty" },
-      { sno: 21, id: "S-22", location: "Durga Kund", lat: 25.2888, lng: 82.9999, elevation: 81, ph: 7.22, ec: 950, orp: 228, temp: 29.4, tds: 608, remarks: "Drinkable" },
-      { sno: 22, id: "S-24", location: "Krin Kund", lat: 25.29625, lng: 83.00312, elevation: 81, ph: 7.84, ec: 890, orp: 228, temp: 29.2, tds: 569.6, remarks: "Drinkable" },
-      { sno: 23, id: "S-1", location: "Water Supply Office", lat: 25.263732, lng: 82.987022, elevation: null, ph: 8.28, ec: 580, orp: 148, temp: 28.6, tds: 371.2, remarks: "Drinkable" },
-      { sno: 24, id: "S-2", location: "Hyderabadg at Cooler Supply", lat: 25.260089, lng: 82.983932, elevation: null, ph: 8.52, ec: 620, orp: 157, temp: 28.8, tds: 306.8, remarks: "Drinkable" },
-      { sno: 25, id: "S-3", location: "Vivekanand Hostel (IIT BHU)", lat: 25.258506, lng: 82.987104, elevation: null, ph: 7.61, ec: 650, orp: 156, temp: 28.9, tds: 416.0, remarks: "Drinkable" },
-      { sno: 26, id: "S-4", location: "BHU Press Water Supply", lat: 25.259053, lng: 82.995325, elevation: null, ph: 7.44, ec: 570, orp: 166, temp: 28.7, tds: 361.8, remarks: "Drinkable" },
-      { sno: 27, id: "S-5", location: "Dept. of Chemistry", lat: 25.266863, lng: 82.993749, elevation: null, ph: 7.91, ec: 600, orp: 155, temp: 28.7, tds: 381.0, remarks: "Drinkable" },
-      { sno: 28, id: "S-6", location: "MCH Water Supply", lat: null, lng: null, elevation: null, ph: 7.32, ec: 780, orp: 154, temp: 28.6, tds: 499.2, remarks: "Drinkable" },
-      { sno: 29, id: "S-7", location: "Badi Tanki", lat: null, lng: null, elevation: null, ph: 7.33, ec: 710, orp: 157, temp: 28.6, tds: 454.1, remarks: "Drinkable" },
-      { sno: 30, id: "S-8", location: "Gargi Hostel", lat: 25.278278, lng: 82.995876, elevation: null, ph: 7.13, ec: 880, orp: 156, temp: 28.5, tds: 563.2, remarks: "Drinkable" },
-      { sno: 31, id: "S-9", location: "Triveni Water Supply", lat: 25.276829, lng: 82.991882, elevation: null, ph: 8.04, ec: 630, orp: 156, temp: 28.5, tds: 403.2, remarks: "Drinkable" },
-      { sno: 32, id: "S-10", location: "Dhanvantari Hostel Cooler", lat: 25.276591, lng: 82.991473, elevation: null, ph: 7.48, ec: 620, orp: 162, temp: 28.6, tds: 396.8, remarks: "Drinkable" },
-      { sno: 33, id: "S-11", location: "Naria Pump", lat: 25.277996, lng: 82.987645, elevation: null, ph: 8.25, ec: 590, orp: 160, temp: 28.4, tds: 377.6, remarks: "Drinkable" },
-      { sno: 34, id: "S-12", location: "Jodhpur Colony", lat: 25.273156, lng: 82.985415, elevation: null, ph: 7.41, ec: 540, orp: 161, temp: 28.3, tds: 345.6, remarks: "Drinkable" },
-      { sno: 35, id: "S-13", location: "Principal Colony", lat: 25.270636, lng: 82.985120, elevation: null, ph: 7.65, ec: 580, orp: 161, temp: 28.1, tds: 371.2, remarks: "Drinkable" },
-      { sno: 36, id: "S-14", location: "Broacha Hostel", lat: 25.271336, lng: 82.989640, elevation: null, ph: 7.65, ec: 580, orp: 161, temp: 28.1, tds: 371.2, remarks: "Drinkable" }
+      { sno: 1, id: "S-8", location: "Chandra k", siteCode: "W", lat: 25.31275, lng: 83.014842, elevation: 97, ph: 8.37, ec: 890, orp: 174, temp: 29.2, tds: 569.6, remarks: "Drinkable" },
+      { sno: 2, id: "S-9", location: "Kaal k", siteCode: "W", lat: 25.317543, lng: 83.016283, elevation: 86, ph: 7.68, ec: 790, orp: 176, temp: 28.7, tds: 505.6, remarks: "Drinkable" },
+      { sno: 3, id: "S-10", location: "Ratna k", siteCode: "W", lat: 25.32117, lng: 83.015215, elevation: 85, ph: 7.84, ec: 850, orp: 184, temp: 28.1, tds: 544, remarks: "Drinkable" },
+      { sno: 4, id: "S-11", location: "Dhanwantari k", siteCode: "W", lat: 25.322339, lng: 83.015083, elevation: 85, ph: 7.78, ec: 840, orp: 200, temp: 29.9, tds: 537.6, remarks: "Drinkable" },
+      { sno: 5, id: "S-13", location: "Bada no-5", siteCode: "W", lat: 25.320076, lng: 83.015942, elevation: 79, ph: 7.72, ec: 670, orp: 197, temp: 28.9, tds: 428.8, remarks: "Drinkable" },
+      { sno: 6, id: "S-14", location: "Well-1", siteCode: "W", lat: 25.320731, lng: 83.016704, elevation: 80, ph: 7.36, ec: 1030, orp: 205, temp: 28.8, tds: 659.2, remarks: "Drinkable" },
+      { sno: 7, id: "S-15", location: "Well-2", siteCode: "W", lat: 25.320709, lng: 83.016702, elevation: 80, ph: 7.38, ec: 1050, orp: 205, temp: 28.3, tds: 672, remarks: "Drinkable" },
+      { sno: 8, id: "S-16", location: "Muqeemganj", siteCode: "W", lat: 25.321618, lng: 83.024809, elevation: 82, ph: 7.26, ec: 670, orp: 193, temp: 28.7, tds: 428.8, remarks: "Drinkable" },
+      { sno: 9, id: "S-18", location: "Narmada K", siteCode: "W", lat: 25.319688, lng: 83.024221, elevation: 80, ph: 7.27, ec: 970, orp: 220, temp: 28.9, tds: 620.8, remarks: "Drinkable" },
+      { sno: 10, id: "S-25", location: "Well-Ramnagar", siteCode: "W", lat: 25.267534, lng: 83.043854, elevation: 80, ph: 7.67, ec: 600, orp: 217, temp: 29.2, tds: 384, remarks: "Drinkable" },
+      { sno: 11, id: "S-30", location: "Bhadaini Well", siteCode: "W", lat: 25.292114, lng: 83.004585, elevation: 78, ph: 7.68, ec: 960, orp: 105, temp: 28.4, tds: 614.4, remarks: "Drinkable" },
+      { sno: 12, id: "S-31", location: "Ramnagar Well", siteCode: "W", lat: 25.270047, lng: 83.028538, elevation: 64, ph: 7.65, ec: 850, orp: 180, temp: 28.6, tds: 544, remarks: "Drinkable" },
+      { sno: 13, id: "S-1", location: "Pushkar Kund", siteCode: "K", lat: 25.28558, lng: 83.00394, elevation: 76, ph: 7.70, ec: 620, orp: 248, temp: 29.2, tds: 396.8, remarks: "Very Dirty" },
+      { sno: 14, id: "S-2", location: "Lolark Kund", siteCode: "K", lat: 25.29111, lng: 83.00567, elevation: 66, ph: 7.87, ec: 480, orp: 255, temp: 29.8, tds: 307.2, remarks: "Drinkable" },
+      { sno: 15, id: "S-3", location: "Lakshami Kund", siteCode: "K", lat: 25.30984, lng: 83.00035, elevation: 80, ph: 7.46, ec: 940, orp: 126, temp: 29.7, tds: 601.6, remarks: "Dirty" },
+      { sno: 16, id: "S-4", location: "Ram Kund", siteCode: "K", lat: 25.3092, lng: 82.99651, elevation: 81, ph: 7.07, ec: 590, orp: -111, temp: 30, tds: 377.6, remarks: "Dirty" },
+      { sno: 17, id: "S-5", location: "Suraj Kund", siteCode: "K", lat: 25.31239, lng: 83.00286, elevation: 80, ph: 7.57, ec: 630, orp: 71, temp: 28.7, tds: 403.2, remarks: "Dirty" },
+      { sno: 18, id: "S-7", location: "Manikarnika Kund", siteCode: "K", lat: 25.31158, lng: 83.01481, elevation: 60, ph: 7.40, ec: 890, orp: 153, temp: 28.8, tds: 569.6, remarks: "Drinkable" },
+      { sno: 19, id: "S-12", location: "Lat Bhairav Kund", siteCode: "K", lat: 25.33283, lng: 83.02406, elevation: 79, ph: 8.17, ec: 2090, orp: 206, temp: 29.8, tds: 1337.6, remarks: "Dirty" },
+      { sno: 20, id: "S-21", location: "Mandakini Kund", siteCode: "K", lat: 25.32025, lng: 83.01433, elevation: 77, ph: 7.74, ec: 820, orp: 217, temp: 28.9, tds: 524.8, remarks: "Dirty" },
+      { sno: 21, id: "S-22", location: "Durga Kund", siteCode: "K", lat: 25.2888, lng: 82.9999, elevation: 81, ph: 7.22, ec: 950, orp: 228, temp: 29.4, tds: 608, remarks: "Drinkable" },
+      { sno: 22, id: "S-24", location: "Krin Kund", siteCode: "K", lat: 25.29625, lng: 83.00312, elevation: 81, ph: 7.84, ec: 890, orp: 228, temp: 29.2, tds: 569.6, remarks: "Drinkable" },
+      { sno: 23, id: "S-1", location: "Water Supply Office", siteCode: "S", lat: 25.263732, lng: 82.987022, elevation: null, ph: 8.28, ec: 580, orp: 148, temp: 28.6, tds: 371.2, remarks: "Drinkable" },
+      { sno: 24, id: "S-2", location: "Hyderabadg at Cooler Supply", siteCode: "S", lat: 25.260089, lng: 82.983932, elevation: null, ph: 8.52, ec: 620, orp: 157, temp: 28.8, tds: 306.8, remarks: "Drinkable" },
+      { sno: 25, id: "S-3", location: "Vivekanand Hostel (IIT BHU)", siteCode: "S", lat: 25.258506, lng: 82.987104, elevation: null, ph: 7.61, ec: 650, orp: 156, temp: 28.9, tds: 416.0, remarks: "Drinkable" },
+      { sno: 26, id: "S-4", location: "BHU Press Water Supply", siteCode: "S", lat: 25.259053, lng: 82.995325, elevation: null, ph: 7.44, ec: 570, orp: 166, temp: 28.7, tds: 361.8, remarks: "Drinkable" },
+      { sno: 27, id: "S-5", location: "Dept. of Chemistry", siteCode: "S", lat: 25.266863, lng: 82.993749, elevation: null, ph: 7.91, ec: 600, orp: 155, temp: 28.7, tds: 381.0, remarks: "Drinkable" },
+      { sno: 28, id: "S-6", location: "MCH Water Supply", siteCode: "S", lat: null, lng: null, elevation: null, ph: 7.32, ec: 780, orp: 154, temp: 28.6, tds: 499.2, remarks: "Drinkable" },
+      { sno: 29, id: "S-7", location: "Badi Tanki", siteCode: "S", lat: null, lng: null, elevation: null, ph: 7.33, ec: 710, orp: 157, temp: 28.6, tds: 454.1, remarks: "Drinkable" },
+      { sno: 30, id: "S-8", location: "Gargi Hostel", siteCode: "S", lat: 25.278278, lng: 82.995876, elevation: null, ph: 7.13, ec: 880, orp: 156, temp: 28.5, tds: 563.2, remarks: "Drinkable" },
+      { sno: 31, id: "S-9", location: "Triveni Water Supply", siteCode: "S", lat: 25.276829, lng: 82.991882, elevation: null, ph: 8.04, ec: 630, orp: 156, temp: 28.5, tds: 403.2, remarks: "Drinkable" },
+      { sno: 32, id: "S-10", location: "Dhanvantari Hostel Cooler", siteCode: "S", lat: 25.276591, lng: 82.991473, elevation: null, ph: 7.48, ec: 620, orp: 162, temp: 28.6, tds: 396.8, remarks: "Drinkable" },
+      { sno: 33, id: "S-11", location: "Naria Pump", siteCode: "S", lat: 25.277996, lng: 82.987645, elevation: null, ph: 8.25, ec: 590, orp: 160, temp: 28.4, tds: 377.6, remarks: "Drinkable" },
+      { sno: 34, id: "S-12", location: "Jodhpur Colony", siteCode: "S", lat: 25.273156, lng: 82.985415, elevation: null, ph: 7.41, ec: 540, orp: 161, temp: 28.3, tds: 345.6, remarks: "Drinkable" },
+      { sno: 35, id: "S-13", location: "Principal Colony", siteCode: "S", lat: 25.270636, lng: 82.985120, elevation: null, ph: 7.65, ec: 580, orp: 161, temp: 28.1, tds: 371.2, remarks: "Drinkable" },
+      { sno: 36, id: "S-14", location: "Broacha Hostel", siteCode: "S", lat: 25.271336, lng: 82.989640, elevation: null, ph: 7.65, ec: 580, orp: 161, temp: 28.1, tds: 371.2, remarks: "Drinkable" }
     ];
 
     /* ========================================================= HAPTICS ========================================================= */
@@ -2218,21 +2218,21 @@
     }
 
     function siteTypeForSample(sample) {
-      const location = String(sample.location || "").toLowerCase();
+      const code = String(sample.siteCode || "").toUpperCase();
 
-      if (/\bwell\b|\bkoop\b/.test(location)) {
-        return { key: "well", icon: "ph-cylinder", label: "Well / Koop" };
+      if (code === "W") {
+        return { key: "well", code: "W", icon: "ph-cylinder", label: "W · Well" };
       }
 
-      if (/\bkund\b/.test(location)) {
-        return { key: "kund", icon: "ph-waves", label: "Kund" };
+      if (code === "K") {
+        return { key: "koop", code: "K", icon: "ph-waves", label: "K · Koop" };
       }
 
-      if (/water supply|cooler supply|\bpump\b/.test(location)) {
-        return { key: "supply", icon: "ph-drop", label: "Supply / Pump" };
+      if (code === "S") {
+        return { key: "supply", code: "S", icon: "ph-drop", label: "S · Supply / Pump" };
       }
 
-      return { key: "other", icon: "ph-map-pin", label: "Other" };
+      return { key: "other", code: "O", icon: "ph-map-pin", label: "O · Other" };
     }
 
     function createSiteMarkerIcon(sample) {
@@ -2349,7 +2349,7 @@
     const legendChips = [...document.querySelectorAll(".legend-item[data-filter-group]")];
     const mapFilters = {
       statuses: new Set(["Drinkable", "Dirty", "Very Dirty"]),
-      sites: new Set(["well", "kund", "supply", "other"])
+      sites: new Set(["well", "koop", "supply", "other"])
     };
 
     function setMapFullscreen(enabled) {
