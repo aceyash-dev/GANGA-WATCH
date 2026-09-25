@@ -1517,11 +1517,12 @@
     }
 
     .map-shell.map-fullscreen .map-legend {
-      top: calc(max(18px, env(safe-area-inset-top)) + 74px);
+      top: calc(max(18px, env(safe-area-inset-top)) + 114px);
       right: 16px;
       left: auto;
       bottom: auto;
       width: min(620px, calc(100vw - 32px));
+      max-width: calc(100vw - 32px);
     }
 
     .map-shell.map-fullscreen #map {
@@ -1534,9 +1535,15 @@
     }
 
     .map-shell.map-fullscreen .legend-scroll {
-      gap: 5px;
+      gap: 7px;
       min-width: 0;
       width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+      touch-action: pan-x;
     }
 
     .map-shell.map-fullscreen .legend-item {
@@ -1573,12 +1580,12 @@
 
     .app.map-is-fullscreen .leaflet-top.leaflet-right {
       display: block;
-      top: 16px;
+      top: 62px;
       right: 16px;
     }
 
     .app.map-is-fullscreen .leaflet-control-layers {
-      margin-top: 108px !important;
+      margin-top: 0 !important;
     }
 
     .leaflet-control-layers {
@@ -1652,7 +1659,7 @@
       }
 
       .app.map-is-fullscreen .leaflet-top.leaflet-right {
-        top: 10px;
+        top: 62px;
         right: 10px;
       }
       .map-legend {
@@ -1663,17 +1670,19 @@
       }
 
       .map-shell.map-fullscreen .map-legend {
-        top: calc(max(10px, env(safe-area-inset-top)) + 74px);
+        top: calc(max(10px, env(safe-area-inset-top)) + 112px);
         right: 10px;
         left: 10px;
         bottom: auto;
         width: auto;
+        max-width: none;
       }
 
       .map-shell.map-fullscreen .legend-item {
-        min-height: 34px;
-        padding: 0 10px;
+        min-height: 36px;
+        padding: 0 11px;
         font-size: 10px;
+        flex: 0 0 auto;
       }
 
       .legend-item {
@@ -2345,6 +2354,31 @@
       event.stopPropagation();
       haptic("click");
       setMapFullscreen(!mapShell.classList.contains("map-fullscreen"));
+    });
+
+    // Keep horizontal chip swipes inside the ribbon instead of letting
+    // Leaflet's map gesture handler consume them.
+    const legendScroll = document.querySelector(".legend-scroll");
+    if (legendScroll) {
+      ["click", "dblclick", "mousedown", "touchstart", "pointerdown", "wheel"].forEach(type => {
+        legendScroll.addEventListener(type, event => event.stopPropagation(), {
+          passive: type === "wheel"
+        });
+      });
+    }
+
+    // Tapping an open area of the map enters fullscreen. Markers, popups,
+    // controls and the legend keep their own interactions.
+    map.on("click", event => {
+      if (mapShell.classList.contains("map-fullscreen")) return;
+
+      const target = event.originalEvent?.target;
+      if (target?.closest?.(
+        ".leaflet-control, .leaflet-popup, .site-marker-wrap, .map-fullscreen-toggle, .map-legend"
+      )) return;
+
+      haptic("click");
+      setMapFullscreen(true);
     });
 
     function openDevPage() {
